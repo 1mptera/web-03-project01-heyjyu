@@ -41,7 +41,7 @@ public class Journal {
         starred = !starred;
     }
 
-    public void revise(String content) {
+    public void write(String content) {
         this.content = content;
     }
 }
