@@ -79,7 +79,7 @@ public class JournalingFrame extends JFrame {
 
         LocalDate now = LocalDate.now();
 
-        JLabel label = new JLabel(now.getYear() + " " + now.getMonth() + now.getDayOfMonth());
+        JLabel label = new JLabel(now.getYear() + " " + now.getMonth() + " " + now.getDayOfMonth());
         label.setForeground(Colors.FONT);
         label.setFont(Fonts.LARGE);
         contentPanel.add(label, gridBagConstraints);

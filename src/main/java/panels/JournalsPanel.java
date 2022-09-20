@@ -1,5 +1,6 @@
 package panels;
 
+import frames.JournalFrame;
 import frames.JournalingFrame;
 import models.InvestGod;
 import models.Journal;
@@ -39,6 +40,7 @@ public class JournalsPanel extends JPanel {
     private JPanel topPanel;
     private JournalingFrame journalingWindow;
     private JPanel journalsPanel;
+    private JournalFrame journalWindow;
 
     public JournalsPanel(InvestGod investGod) throws IOException {
         this.investGod = investGod;
@@ -139,7 +141,24 @@ public class JournalsPanel extends JPanel {
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         button.addActionListener(event -> {
-            //TODO: 내용 보기 프레임 열기
+            if (journalWindow != null && journalWindow.isDisplayable()) {
+                return;
+            }
+
+            journalWindow = new JournalFrame(investGod, journal);
+
+            journalWindow.setVisible(true);
+
+            journalWindow.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    try {
+                        updateJournalsPanel();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+            });
         });
 
         panel.add(button, gridBagConstraints);
