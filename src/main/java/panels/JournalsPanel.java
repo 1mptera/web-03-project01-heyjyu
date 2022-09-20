@@ -14,11 +14,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -106,10 +108,11 @@ public class JournalsPanel extends JPanel {
         topPanel.add(label);
     }
 
-    private JPanel createJournalsPanel() throws IOException {
+    private JScrollPane createJournalsPanel() throws IOException {
+
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0, 1));
-        panel.setBorder(new EmptyBorder(20, 0, 0, 0));
+        panel.setBorder(new EmptyBorder(10, 0, 0, 0));
 
         for (Journal journal : journals) {
             panel.add(createJournalPanel(journal));
@@ -117,7 +120,20 @@ public class JournalsPanel extends JPanel {
 
         panel.setOpaque(false);
 
-        return panel;
+        JPanel wrapperPanel = new JPanel();
+        wrapperPanel.setLayout(new BorderLayout());
+
+        wrapperPanel.add(panel, BorderLayout.PAGE_START);
+
+        wrapperPanel.setOpaque(false);
+
+        JScrollPane jScrollPane = new JScrollPane(wrapperPanel);
+        jScrollPane.setPreferredSize(new Dimension(300, 530));
+        jScrollPane.setBorder(null);
+
+        jScrollPane.setOpaque(false);
+
+        return jScrollPane;
     }
 
     private JPanel createJournalPanel(Journal journal) throws IOException {
@@ -128,7 +144,6 @@ public class JournalsPanel extends JPanel {
 
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.fill = GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new Insets(0, 0, 15, 0);
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.weightx = 1.0;
@@ -172,7 +187,7 @@ public class JournalsPanel extends JPanel {
         Icon icon = new ImageIcon(image);
 
         gridBagConstraints.fill = GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new Insets(0, 0, 0, 10);
+        gridBagConstraints.insets = new Insets(0, 0, 10, 10);
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.weightx = 0.0;
@@ -201,7 +216,6 @@ public class JournalsPanel extends JPanel {
     private void initJournalsPanel() throws IOException {
         journalsPanel = new JPanel();
         journalsPanel.setLayout(new BorderLayout());
-        System.out.println(journals.size());
 
         if (journals.size() == 0) {
             JPanel messagePanel = new JPanel();
