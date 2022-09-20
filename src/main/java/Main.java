@@ -1,5 +1,6 @@
 import frames.MainFrame;
 import models.InvestGod;
+import models.User;
 
 import javax.swing.JFrame;
 import java.io.IOException;
@@ -24,6 +25,7 @@ public class Main {
     private void loadData() {
         investGod = new InvestGod();
 
+        investGod.loadUser();
         investGod.loadJournals();
     }
 }

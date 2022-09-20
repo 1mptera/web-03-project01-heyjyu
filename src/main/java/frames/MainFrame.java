@@ -1,6 +1,7 @@
 package frames;
 
 import models.InvestGod;
+import models.User;
 import panels.JournalsPanel;
 import panels.NavigatorPanel;
 
@@ -13,12 +14,12 @@ import java.awt.GridLayout;
 import java.io.IOException;
 
 public class MainFrame extends JFrame {
-    private InvestGod investGod;
+    private User user;
 
     private JPanel contentPanel;
 
     public MainFrame(InvestGod investGod) throws IOException {
-        this.investGod = investGod;
+        this.user = investGod.user();
 
         setTitle("Invest God");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,7 +50,7 @@ public class MainFrame extends JFrame {
     }
 
     private void initJournalsPanel() throws IOException {
-        contentPanel.add(new JournalsPanel(investGod));
+        contentPanel.add(new JournalsPanel(user));
     }
 
     private void initNavigatorPanel() throws IOException {
@@ -57,6 +58,6 @@ public class MainFrame extends JFrame {
         gridBagConstraints.fill = GridBagConstraints.BOTH;
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        add(new NavigatorPanel(contentPanel, investGod), gridBagConstraints);
+        add(new NavigatorPanel(contentPanel, user), gridBagConstraints);
     }
 }

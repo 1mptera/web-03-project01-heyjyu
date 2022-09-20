@@ -1,21 +1,17 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 public class InvestGod {
-    private List<Journal> journals = new ArrayList<>();
+    private User user = new User();
 
     public void loadJournals() {
-//        journals = List.of(new Journal(new Date(), "익절", "내용")); //TODO 실제로 로드하기 파일에서
+        //TODO 파일에서 읽어오기
     }
 
-    public void writeJournal(Journal journal) {
-        journals.add(journal);
+    public void loadUser() {
+        //TODO 파일에서 읽어오기
     }
 
-    public List<Journal> journals() {
-        return journals;
+    public User user() {
+        return user;
     }
 }

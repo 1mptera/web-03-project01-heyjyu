@@ -48,4 +48,18 @@ class JournalTest {
 
         assertEquals(false, journal1.starred());
     }
+
+    @Test
+    void revise() {
+        LocalDate date = LocalDate.of(2022, 9, 19);
+        String title = "익절";
+        String content = "";
+        Journal journal = new Journal(date, title, content);
+
+        assertEquals("", journal.content());
+
+        journal.revise("지수가 안 좋아지고 있어서 수익권에 있던 주식들을 모두 매도했다.");
+
+        assertEquals("지수가 안 좋아지고 있어서 수익권에 있던 주식들을 모두 매도했다.", journal.content());
+    }
 }

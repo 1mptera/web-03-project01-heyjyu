@@ -2,7 +2,7 @@ package panels;
 
 import frames.JournalFrame;
 import frames.JournalingFrame;
-import models.InvestGod;
+import models.User;
 import models.Journal;
 import themes.Colors;
 import themes.Fonts;
@@ -36,7 +36,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class JournalsPanel extends JPanel {
-    private InvestGod investGod;
+    private User user;
     private List<Journal> journals;
 
     private JPanel topPanel;
@@ -44,9 +44,9 @@ public class JournalsPanel extends JPanel {
     private JPanel journalsPanel;
     private JournalFrame journalWindow;
 
-    public JournalsPanel(InvestGod investGod) throws IOException {
-        this.investGod = investGod;
-        this.journals = investGod.journals();
+    public JournalsPanel(User user) throws IOException {
+        this.user = user;
+        this.journals = user.journals();
         setLayout(new BorderLayout());
         setOpaque(false);
 
@@ -81,7 +81,7 @@ public class JournalsPanel extends JPanel {
                 return;
             }
 
-            journalingWindow = new JournalingFrame(investGod);
+            journalingWindow = new JournalingFrame(user);
 
             journalingWindow.setVisible(true);
 
@@ -160,7 +160,7 @@ public class JournalsPanel extends JPanel {
                 return;
             }
 
-            journalWindow = new JournalFrame(investGod, journal);
+            journalWindow = new JournalFrame(journal);
 
             journalWindow.setVisible(true);
 
