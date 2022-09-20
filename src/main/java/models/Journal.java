@@ -40,4 +40,8 @@ public class Journal {
     public void toggleStar() {
         starred = !starred;
     }
+
+    public void revise(String content) {
+        this.content = content;
+    }
 }

@@ -1,6 +1,6 @@
 package frames;
 
-import models.InvestGod;
+import models.User;
 import models.Journal;
 import models.Trading;
 import themes.Colors;
@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JournalingFrame extends JFrame {
-    private InvestGod investGod;
+    private User user;
     private List<Trading> tradings = new ArrayList<>();
 
     private JPanel contentPanel;
@@ -45,8 +45,8 @@ public class JournalingFrame extends JFrame {
     private JTextField countField;
     private JPanel tradingPanel;
 
-    public JournalingFrame(InvestGod investGod) {
-        this.investGod = investGod;
+    public JournalingFrame(User user) {
+        this.user = user;
         setTitle("일지 작성");
         setLayout(new GridLayout());
         setSize(new Dimension(300, 500));
@@ -266,7 +266,7 @@ public class JournalingFrame extends JFrame {
                 return;
             }
 
-            investGod.writeJournal(new Journal(LocalDate.now(), title, content));
+            user.writeJournal(new Journal(LocalDate.now(), title, content));
 
             dispose();
         });

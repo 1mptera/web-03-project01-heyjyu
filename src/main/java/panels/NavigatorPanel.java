@@ -1,6 +1,6 @@
 package panels;
 
-import models.InvestGod;
+import models.User;
 
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
@@ -18,11 +18,11 @@ import java.io.IOException;
 
 public class NavigatorPanel extends JPanel {
     private JPanel contentPanel;
-    private InvestGod investGod;
+    private User user;
 
-    public NavigatorPanel(JPanel contentPanel, InvestGod investGod) throws IOException {
+    public NavigatorPanel(JPanel contentPanel, User user) throws IOException {
         this.contentPanel = contentPanel;
-        this.investGod = investGod;
+        this.user = user;
         setPreferredSize(new Dimension(400, 70));
         setLayout(new GridLayout(1, 5));
         setBackground(new Color(0, 37, 88));
@@ -43,7 +43,7 @@ public class NavigatorPanel extends JPanel {
 
         button.addActionListener(event -> {
             try {
-                updateContentPanel(new JournalsPanel(investGod));
+                updateContentPanel(new JournalsPanel(user));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
