@@ -128,7 +128,7 @@ public class RevisingFrame extends JFrame {
         JButton button = new JButton("수정");
 
         button.addActionListener(event -> {
-            journal.revise(textArea.getText());
+            journal.write(textArea.getText());
 
             dispose();
         });
