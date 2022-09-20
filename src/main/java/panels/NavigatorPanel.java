@@ -1,8 +1,8 @@
 package panels;
 
+import models.Resources;
 import models.User;
 
-import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,7 +13,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.io.File;
 import java.io.IOException;
 
 public class NavigatorPanel extends JPanel {
@@ -35,7 +34,7 @@ public class NavigatorPanel extends JPanel {
     }
 
     private void initJournalButton() throws IOException {
-        Image image = ImageIO.read(new File("src/main/resources/images/iconmonstr-file-20-24.png"));
+        Image image = Resources.FILE_IMAGE;
         Icon icon = new ImageIcon(image);
         JButton button = new JButton("일지", icon);
 
@@ -53,7 +52,7 @@ public class NavigatorPanel extends JPanel {
     }
 
     private void initBookmarkButton() throws IOException {
-        Image image = ImageIO.read(new File("src/main/resources/images/iconmonstr-star-5-24.png"));
+        Image image = Resources.STAR_IMAGE;
         Icon icon = new ImageIcon(image);
         JButton button = new JButton("즐겨찾기", icon);
 
@@ -67,7 +66,7 @@ public class NavigatorPanel extends JPanel {
     }
 
     private void initMyAssetsButton() throws IOException {
-        Image image = ImageIO.read(new File("src/main/resources/images/iconmonstr-banknote-8-24.png"));
+        Image image = Resources.BANKNOTE_IMAGE;
         Icon icon = new ImageIcon(image);
         JButton button = new JButton("나의 자산", icon);
 
@@ -81,7 +80,7 @@ public class NavigatorPanel extends JPanel {
     }
 
     private void initWishListButton() throws IOException {
-        Image image = ImageIO.read(new File("src/main/resources/images/iconmonstr-favorite-4-24.png"));
+        Image image = Resources.HEART_IMAGE;
         Icon icon = new ImageIcon(image);
         JButton button = new JButton("관심", icon);
 
@@ -95,7 +94,7 @@ public class NavigatorPanel extends JPanel {
     }
 
     private void initGoalButton() throws IOException {
-        Image image = ImageIO.read(new File("src/main/resources/images/iconmonstr-medal-3-24.png"));
+        Image image = Resources.MEDAL_IMAGE;
         Icon icon = new ImageIcon(image);
         JButton button = new JButton("목표", icon);
 

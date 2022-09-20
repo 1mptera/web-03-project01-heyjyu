@@ -2,12 +2,12 @@ package panels;
 
 import frames.JournalFrame;
 import frames.JournalingFrame;
-import models.User;
 import models.Journal;
+import models.Resources;
+import models.User;
 import themes.Colors;
 import themes.Fonts;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -30,7 +30,6 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
@@ -136,7 +135,7 @@ public class JournalsPanel extends JPanel {
         return jScrollPane;
     }
 
-    private JPanel createJournalPanel(Journal journal) throws IOException {
+    private JPanel createJournalPanel(Journal journal) {
         LocalDate date = journal.date();
 
         JPanel panel = new JPanel();
@@ -178,10 +177,10 @@ public class JournalsPanel extends JPanel {
 
         panel.add(button, gridBagConstraints);
 
-        Image starImage = ImageIO.read(new File("src/main/resources/images/iconmonstr-star-lined-32.png"));
+        Image starImage = Resources.STAR_LINED_IMAGE;
 
         if (journal.starred()) {
-            starImage = ImageIO.read(new File("src/main/resources/images/iconmonstr-star-filled-32.png"));
+            starImage = Resources.STAR_FILLED_IMAGE;
         }
 
         Icon starIcon = new ImageIcon(starImage);
@@ -208,9 +207,7 @@ public class JournalsPanel extends JPanel {
 
         panel.add(starButton, gridBagConstraints);
 
-        Image xImage = ImageIO.read(new File("src/main/resources/images/iconmonstr-x-mark-lined-32.png"));
-
-        Icon xIcon = new ImageIcon(xImage);
+        Icon xIcon = new ImageIcon(Resources.X_IMAGE);
 
         gridBagConstraints.fill = GridBagConstraints.BOTH;
         gridBagConstraints.gridx = 2;
