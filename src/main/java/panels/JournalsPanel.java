@@ -178,25 +178,25 @@ public class JournalsPanel extends JPanel {
 
         panel.add(button, gridBagConstraints);
 
-        Image image = ImageIO.read(new File("src/main/resources/images/iconmonstr-star-lined-32.png"));
+        Image starImage = ImageIO.read(new File("src/main/resources/images/iconmonstr-star-lined-32.png"));
 
         if (journal.starred()) {
-            image = ImageIO.read(new File("src/main/resources/images/iconmonstr-star-filled-32.png"));
+            starImage = ImageIO.read(new File("src/main/resources/images/iconmonstr-star-filled-32.png"));
         }
 
-        Icon icon = new ImageIcon(image);
+        Icon starIcon = new ImageIcon(starImage);
 
         gridBagConstraints.fill = GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new Insets(0, 0, 10, 10);
+        gridBagConstraints.insets = new Insets(0, 0, 10, 0);
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.weightx = 0.0;
 
-        JButton iconButton = new JButton(icon);
-        iconButton.setBorderPainted(false);
-        iconButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        JButton starButton = new JButton(starIcon);
+        starButton.setBorderPainted(false);
+        starButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        iconButton.addActionListener(event -> {
+        starButton.addActionListener(event -> {
             journal.toggleStar();
 
             try {
@@ -206,7 +206,32 @@ public class JournalsPanel extends JPanel {
             }
         });
 
-        panel.add(iconButton, gridBagConstraints);
+        panel.add(starButton, gridBagConstraints);
+
+        Image xImage = ImageIO.read(new File("src/main/resources/images/iconmonstr-x-mark-lined-32.png"));
+
+        Icon xIcon = new ImageIcon(xImage);
+
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+
+        JButton deleteButton = new JButton(xIcon);
+        deleteButton.setFont(Fonts.BOLD);
+        deleteButton.setBorderPainted(false);
+        deleteButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        deleteButton.addActionListener(event -> {
+            user.removeJournal(journal);
+
+            try {
+                updateJournalsPanel();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        panel.add(deleteButton, gridBagConstraints);
 
         panel.setOpaque(false);
 

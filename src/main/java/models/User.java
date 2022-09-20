@@ -13,4 +13,8 @@ public class User {
     public List<Journal> journals() {
         return journals;
     }
+
+    public void removeJournal(Journal journal) {
+        journals.remove(journal);
+    }
 }

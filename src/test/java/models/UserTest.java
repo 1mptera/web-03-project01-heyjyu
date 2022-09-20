@@ -30,4 +30,18 @@ class UserTest {
         assertEquals(List.of(journal), user.journals());
     }
 
+    @Test
+    void removeJournal() {
+        User user = new User();
+
+        LocalDate date = LocalDate.of(2022, 9, 20);
+        String title = "익절";
+        String content = "지수가 하락하는 것을 보고 삼성전자 주식을 매도했다.";
+        Journal journal = new Journal(date, title, content);
+
+        user.writeJournal(journal);
+        user.removeJournal(journal);
+
+        assertEquals(List.of(), user.journals());
+    }
 }
