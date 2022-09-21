@@ -1,7 +1,9 @@
 package frames;
 
+import application.AssetService;
 import application.JournalService;
 import application.TradingService;
+import models.Trading;
 import themes.Colors;
 import themes.Fonts;
 
@@ -40,6 +42,7 @@ public class JournalingFrame extends JFrame {
     private JPanel tradingPanel;
     private JournalService journalService = new JournalService();
     private TradingService tradingService = new TradingService();
+    private AssetService assetService = new AssetService();
 
     public JournalingFrame() {
         setTitle("일지 작성");
@@ -262,6 +265,8 @@ public class JournalingFrame extends JFrame {
             }
 
             journalService.writeJournal(title, content, tradingService.tradings());
+
+            assetService.process(tradingService.tradings());
 
             dispose();
         });
