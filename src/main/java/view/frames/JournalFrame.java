@@ -70,7 +70,7 @@ public class JournalFrame extends JFrame {
                 return;
             }
 
-            revisingWindow = new ModifyingFrame(journalId);
+            revisingWindow = new frames.ModifyingFrame(journalId);
 
             revisingWindow.setVisible(true);
 

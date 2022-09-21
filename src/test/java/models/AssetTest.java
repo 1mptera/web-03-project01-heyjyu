@@ -49,4 +49,28 @@ class AssetTest {
         assertEquals(10.0, asset.count());
         assertEquals(56000.0, currentUnitPrice);
     }
+
+    @Test
+    void valuation() {
+        String name = "삼성전자";
+        Double averagePrice = 56000.0;
+        Double count = 10.0;
+        Double currentUnitPrice = 55000.0;
+
+        Asset asset = new Asset(name, averagePrice, count, currentUnitPrice);
+
+        assertEquals(550000.0, asset.valuation());
+    }
+
+    @Test
+    void totalPurchase() {
+        String name = "삼성전자";
+        Double averagePrice = 56000.0;
+        Double count = 10.0;
+        Double currentUnitPrice = 55000.0;
+
+        Asset asset = new Asset(name, averagePrice, count, currentUnitPrice);
+
+        assertEquals(56000.0 * 10.0, asset.totalPurchase());
+    }
 }
