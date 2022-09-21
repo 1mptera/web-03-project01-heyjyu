@@ -1,7 +1,6 @@
 package frames;
 
 import application.JournalService;
-import models.Journal;
 import themes.Colors;
 import themes.Fonts;
 
@@ -19,7 +18,6 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.UUID;
 

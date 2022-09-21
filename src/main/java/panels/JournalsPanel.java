@@ -4,7 +4,6 @@ import application.JournalService;
 import frames.JournalFrame;
 import frames.JournalingFrame;
 import models.Resources;
-import repositories.JournalRepository;
 import themes.Colors;
 import themes.Fonts;
 
@@ -35,8 +34,6 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class JournalsPanel extends JPanel {
-    private JournalRepository journalRepository;
-
     private JPanel topPanel;
     private JournalingFrame journalingWindow;
     private JPanel journalsPanel;
@@ -44,7 +41,6 @@ public class JournalsPanel extends JPanel {
     private JournalService journalService = new JournalService();
 
     public JournalsPanel() throws IOException {
-        journalRepository = JournalRepository.getInstance();
         setLayout(new BorderLayout());
         setOpaque(false);
 
@@ -106,9 +102,30 @@ public class JournalsPanel extends JPanel {
         topPanel.add(label);
     }
 
-    private JScrollPane createJournalsPanel() throws IOException {
-
+    private JScrollPane createJournalsPanel() {
         JPanel panel = new JPanel();
+
+        if (journalService.journals().size() == 0) {
+            panel = new JPanel();
+            panel.setLayout(new BorderLayout());
+            panel.setBorder(null);
+
+            JPanel messagePanel = new JPanel();
+
+            messagePanel.add(new JLabel("일지를 작성해주세요!"));
+
+            messagePanel.setOpaque(false);
+
+            panel.add(messagePanel, BorderLayout.PAGE_START);
+
+            panel.setOpaque(false);
+
+            JScrollPane scrollPane = new JScrollPane(panel);
+            scrollPane.setBorder(null);
+
+            return scrollPane;
+        }
+
         panel.setLayout(new GridLayout(0, 1));
         panel.setBorder(new EmptyBorder(10, 0, 0, 0));
 
@@ -125,13 +142,13 @@ public class JournalsPanel extends JPanel {
 
         wrapperPanel.setOpaque(false);
 
-        JScrollPane jScrollPane = new JScrollPane(wrapperPanel);
-        jScrollPane.setPreferredSize(new Dimension(300, 530));
-        jScrollPane.setBorder(null);
+        JScrollPane scrollPane = new JScrollPane(wrapperPanel);
+        scrollPane.setPreferredSize(new Dimension(300, 530));
+        scrollPane.setBorder(null);
 
-        jScrollPane.setOpaque(false);
+        scrollPane.setOpaque(false);
 
-        return jScrollPane;
+        return scrollPane;
     }
 
     private JPanel createJournalPanel(Object journalId) {
@@ -234,25 +251,9 @@ public class JournalsPanel extends JPanel {
         return panel;
     }
 
-    private void initJournalsPanel() throws IOException {
+    private void initJournalsPanel() {
         journalsPanel = new JPanel();
         journalsPanel.setLayout(new BorderLayout());
-
-        if (journalService.journals().size() == 0) {
-            JPanel messagePanel = new JPanel();
-
-            messagePanel.add(new JLabel("일지를 작성해주세요!"));
-
-            messagePanel.setOpaque(false);
-
-            journalsPanel.add(messagePanel, BorderLayout.PAGE_START);
-
-            journalsPanel.setOpaque(false);
-
-            add(journalsPanel, BorderLayout.CENTER);
-
-            return;
-        }
 
         journalsPanel.add(createJournalsPanel(), BorderLayout.PAGE_START);
 

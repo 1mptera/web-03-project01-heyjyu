@@ -1,7 +1,6 @@
 package frames;
 
 import application.JournalService;
-import models.Journal;
 import themes.Colors;
 import themes.Fonts;
 

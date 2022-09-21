@@ -5,7 +5,6 @@ import models.Trading;
 import repositories.JournalRepository;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,7 +16,7 @@ public class JournalService {
     }
 
     public List<Journal> journals() {
-        return repository.getJournals();
+        return repository.journals();
     }
 
     public void writeJournal(String title, String content, List<Trading> tradings) {
@@ -25,7 +24,7 @@ public class JournalService {
     }
 
     public List<UUID> getIds() {
-        return repository.getJournals()
+        return repository.journals()
                 .stream()
                 .map(journal -> journal.id())
                 .toList();
@@ -61,5 +60,13 @@ public class JournalService {
 
     public void toggleStar(UUID journalId) {
         repository.getById(journalId).toggleStar();
+    }
+
+    public List<UUID> getStarredIds() {
+        return repository.journals()
+                .stream()
+                .filter(journal -> journal.starred())
+                .map(journal -> journal.id())
+                .toList();
     }
 }

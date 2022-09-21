@@ -57,7 +57,11 @@ public class NavigatorPanel extends JPanel {
         applyTheme(button);
 
         button.addActionListener(event -> {
-            updateContentPanel(new BookmarkPanel());
+            try {
+                updateContentPanel(new BookmarkPanel());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
         add(button);
