@@ -1,7 +1,6 @@
 package panels;
 
 import models.Resources;
-import models.User;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;

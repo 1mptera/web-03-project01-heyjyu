@@ -1,6 +1,9 @@
 package models;
 
+import java.util.UUID;
+
 public class Trading {
+    private final UUID id;
     private String name;
     private String type;
     private Double unitPrice;
@@ -8,6 +11,7 @@ public class Trading {
     private double amount;
 
     public Trading(String name, String type, Double unitPrice, Double count) {
+        this.id = UUID.randomUUID();
         this.name = name;
         this.type = type;
         this.unitPrice = unitPrice;
@@ -42,5 +46,9 @@ public class Trading {
     @Override
     public String toString() {
         return name + " " + type + " " + amount + "원";
+    }
+
+    public UUID id() {
+        return id;
     }
 }

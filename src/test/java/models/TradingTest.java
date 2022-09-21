@@ -44,4 +44,17 @@ class TradingTest {
 
         assertEquals(265850.0, trading.amount());
     }
+
+    @Test
+    void id() {
+        String name = "비트코인";
+        String type = "매수";
+        Double unitPrice = 26585000.0;
+        Double count = 0.01;
+
+        Trading trading1 = new Trading(name, type, unitPrice, count);
+        Trading trading2 = new Trading(name, type, unitPrice, count);
+
+        assertNotEquals(trading1.id(), trading2.id());
+    }
 }

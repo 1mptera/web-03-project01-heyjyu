@@ -1,6 +1,7 @@
 package application;
 
 import models.Journal;
+import models.Trading;
 import repositories.JournalRepository;
 
 import java.time.LocalDate;
@@ -19,19 +20,19 @@ public class JournalService {
         return repository.getJournals();
     }
 
-    public void writeJournal(String title, String content) {
-        repository.add(new Journal(LocalDate.now(), title, content));
+    public void writeJournal(String title, String content, List<Trading> tradings) {
+        repository.add(new Journal(LocalDate.now(), title, content, tradings));
     }
 
-    public List<Object> getIds() {
-        return Arrays.asList(repository.getJournals()
+    public List<UUID> getIds() {
+        return repository.getJournals()
                 .stream()
-                .map(journal -> journal.getId())
-                .toArray());
+                .map(journal -> journal.id())
+                .toList();
     }
 
     public UUID getId(Journal journal) {
-        return journal.getId();
+        return journal.id();
     }
 
     public LocalDate date(UUID journalId) {

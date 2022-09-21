@@ -1,9 +1,7 @@
 package frames;
 
 import application.JournalService;
-import models.User;
-import models.Journal;
-import models.Trading;
+import application.TradingService;
 import themes.Colors;
 import themes.Fonts;
 
@@ -28,12 +26,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class JournalingFrame extends JFrame {
-    private List<Trading> tradings = new ArrayList<>();
-
     private JPanel contentPanel;
     private JTextField textField;
     private JTextArea textArea;
@@ -45,6 +39,7 @@ public class JournalingFrame extends JFrame {
     private JTextField countField;
     private JPanel tradingPanel;
     private JournalService journalService = new JournalService();
+    private TradingService tradingService = new TradingService();
 
     public JournalingFrame() {
         setTitle("일지 작성");
@@ -166,8 +161,8 @@ public class JournalingFrame extends JFrame {
         tradingsPanel.setLayout(new GridLayout(0, 1));
         tradingsPanel.setOpaque(false);
 
-        for (Trading trading : tradings) {
-            tradingsPanel.add(new JLabel(trading.toString()));
+        for (String tradingHistory : tradingService.tradingHistories()) {
+            tradingsPanel.add(new JLabel(tradingHistory));
         }
 
         return new JScrollPane(tradingsPanel);
@@ -247,7 +242,7 @@ public class JournalingFrame extends JFrame {
             Double unitPrice = Double.parseDouble(unitPriceField.getText());
             Double count = Double.parseDouble(countField.getText());
 
-            tradings.add(new Trading(name, type, unitPrice, count));
+            tradingService.add(name, type, unitPrice, count);
 
             resetFields();
             updateTradingPanel();
@@ -266,7 +261,7 @@ public class JournalingFrame extends JFrame {
                 return;
             }
 
-            journalService.writeJournal(title, content);
+            journalService.writeJournal(title, content, tradingService.tradings());
 
             dispose();
         });

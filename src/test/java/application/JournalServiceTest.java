@@ -1,11 +1,10 @@
 package application;
 
 import models.Journal;
+import models.Trading;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,8 +19,9 @@ class JournalServiceTest {
 
         String title = "삼성전자 매수";
         String content = "반도체 수요가 늘어날 것으로 예측되어 매수했다.";
+        List<Trading> tradings = List.of(new Trading("삼성전자", "매수", 56000.0, 10.0));
 
-        journalService.writeJournal(title, content);
+        journalService.writeJournal(title, content, tradings);
 
         List<Journal> journals = journalService.journals();
         Journal journal = journals.get(journals.size() - 1);
@@ -37,8 +37,9 @@ class JournalServiceTest {
 
         String title = "삼성전자 매수";
         String content = "반도체 수요가 늘어날 것으로 예측되어 매수했다.";
+        List<Trading> tradings = List.of(new Trading("삼성전자", "매도", 56000.0, 10.0));
 
-        journalService.writeJournal(title, content);
+        journalService.writeJournal(title, content, tradings);
 
         List<Journal> journals = journalService.journals();
         Journal journal = journals.get(journals.size() - 1);
@@ -54,13 +55,14 @@ class JournalServiceTest {
 
         String title = "삼성전자 매수";
         String content = "반도체 수요가 늘어날 것으로 예측되어 매수했다.";
+        List<Trading> tradings = List.of(new Trading("삼성전자", "매도", 56000.0, 10.0));
 
-        journalService.writeJournal(title, content);
+        journalService.writeJournal(title, content, tradings);
 
         List<Journal> journals = journalService.journals();
         Journal journal = journals.get(journals.size() - 1);
 
-        assertEquals(journal.getId(), journalService.getId(journal));
+        assertEquals(journal.id(), journalService.getId(journal));
 
         journalService.removeJournal(journalService.getId(journal));
     }
@@ -71,8 +73,9 @@ class JournalServiceTest {
 
         String title = "삼성전자 매수";
         String content = "반도체 수요가 늘어날 것으로 예측되어 매수했다.";
+        List<Trading> tradings = List.of(new Trading("삼성전자", "매도", 56000.0, 10.0));
 
-        journalService.writeJournal(title, content);
+        journalService.writeJournal(title, content, tradings);
 
         List<Journal> journals = journalService.journals();
         Journal journal = journals.get(journals.size() - 1);
@@ -88,8 +91,9 @@ class JournalServiceTest {
 
         String title = "삼성전자 매수";
         String content = "반도체 수요가 늘어날 것으로 예측되어 매수했다.";
+        List<Trading> tradings = List.of(new Trading("삼성전자", "매도", 56000.0, 10.0));
 
-        journalService.writeJournal(title, content);
+        journalService.writeJournal(title, content, tradings);
 
         List<Journal> journals = journalService.journals();
         Journal journal = journals.get(journals.size() - 1);
@@ -105,8 +109,9 @@ class JournalServiceTest {
 
         String title = "삼성전자 매수";
         String content = "반도체 수요가 늘어날 것으로 예측되어 매수했다.";
+        List<Trading> tradings = List.of(new Trading("삼성전자", "매도", 56000.0, 10.0));
 
-        journalService.writeJournal(title, content);
+        journalService.writeJournal(title, content, tradings);
 
         List<Journal> journals = journalService.journals();
         Journal journal = journals.get(journals.size() - 1);
@@ -122,8 +127,9 @@ class JournalServiceTest {
 
         String title = "삼성전자 매수";
         String content = "반도체 수요가 늘어날 것으로 예측되어 매수했다.";
+        List<Trading> tradings = List.of(new Trading("삼성전자", "매도", 56000.0, 10.0));
 
-        journalService.writeJournal(title, content);
+        journalService.writeJournal(title, content, tradings);
 
         List<Journal> journals = journalService.journals();
         Journal journal = journals.get(journals.size() - 1);
@@ -139,8 +145,9 @@ class JournalServiceTest {
 
         String title = "삼성전자 매수";
         String content = "반도체 수요가 늘어날 것으로 예측되어 매수했다.";
+        List<Trading> tradings = List.of(new Trading("삼성전자", "매도", 56000.0, 10.0));
 
-        journalService.writeJournal(title, content);
+        journalService.writeJournal(title, content, tradings);
 
         List<Journal> journals = journalService.journals();
         Journal journal = journals.get(journals.size() - 1);
@@ -156,8 +163,9 @@ class JournalServiceTest {
 
         String title = "삼성전자 매수";
         String content = "반도체 수요가 늘어날 것으로 예측되어 매수했다.";
+        List<Trading> tradings = List.of(new Trading("삼성전자", "매도", 56000.0, 10.0));
 
-        journalService.writeJournal(title, content);
+        journalService.writeJournal(title, content, tradings);
 
         List<Journal> journals = journalService.journals();
         Journal journal = journals.get(journals.size() - 1);
@@ -175,8 +183,9 @@ class JournalServiceTest {
 
         String title = "삼성전자 매수";
         String content = "반도체 수요가 늘어날 것으로 예측되어 매수했다.";
+        List<Trading> tradings = List.of(new Trading("삼성전자", "매도", 56000.0, 10.0));
 
-        journalService.writeJournal(title, content);
+        journalService.writeJournal(title, content, tradings);
 
         List<Journal> journals = journalService.journals();
         Journal journal = journals.get(journals.size() - 1);

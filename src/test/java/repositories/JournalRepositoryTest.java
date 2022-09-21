@@ -1,6 +1,7 @@
 package repositories;
 
 import models.Journal;
+import models.Trading;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -18,9 +19,10 @@ class JournalRepositoryTest {
         LocalDate date = LocalDate.of(2022, 9, 21);
         String title = "익절";
         String content = "지수가 하락해서 매도했다.";
-        Journal journal = new Journal(date, title, content);
+        List<Trading> tradings = List.of(new Trading("삼성전자", "매도", 56000.0, 10.0));
+        Journal journal = new Journal(date, title, content, tradings);
 
-        UUID id = journal.getId();
+        UUID id = journal.id();
 
         journalRepository.add(journal);
 
@@ -36,9 +38,10 @@ class JournalRepositoryTest {
         LocalDate date = LocalDate.of(2022, 9, 21);
         String title = "익절";
         String content = "지수가 하락해서 매도했다.";
-        Journal journal = new Journal(date, title, content);
+        List<Trading> tradings = List.of(new Trading("삼성전자", "매도", 56000.0, 10.0));
+        Journal journal = new Journal(date, title, content, tradings);
 
-        UUID id = journal.getId();
+        UUID id = journal.id();
 
         journalRepository.add(journal);
 
@@ -54,9 +57,10 @@ class JournalRepositoryTest {
         LocalDate date = LocalDate.of(2022, 9, 21);
         String title = "익절";
         String content = "지수가 하락해서 매도했다.";
-        Journal journal = new Journal(date, title, content);
+        List<Trading> tradings = List.of(new Trading("삼성전자", "매도", 56000.0, 10.0));
+        Journal journal = new Journal(date, title, content, tradings);
 
-        UUID id = journal.getId();
+        UUID id = journal.id();
 
         journalRepository.add(journal);
 
