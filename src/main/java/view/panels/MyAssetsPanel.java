@@ -3,6 +3,7 @@ package panels;
 import frames.RegisterAssetsFrame;
 import themes.Colors;
 import themes.Fonts;
+import view.frames.CurrentPriceModifyingFrame;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -28,6 +29,7 @@ public class MyAssetsPanel extends JPanel {
     private JButton assetsTabButton;
     private JButton transactionTabButton;
     private JFrame registerAssetsWindow;
+    private JFrame currentPriceModifyingWindow;
 
     public MyAssetsPanel() {
         setLayout(new BorderLayout());
@@ -102,7 +104,20 @@ public class MyAssetsPanel extends JPanel {
         applyTheme(registerButton);
 
         registerButton.addActionListener(event -> {
-            //TODO
+            if (currentPriceModifyingWindow != null && currentPriceModifyingWindow.isDisplayable()) {
+                return;
+            }
+
+            currentPriceModifyingWindow = new CurrentPriceModifyingFrame();
+
+            currentPriceModifyingWindow.setVisible(true);
+
+            currentPriceModifyingWindow.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    updateContentPanel(new panels.AssetsPanel());
+                }
+            });
         });
 
         return registerButton;

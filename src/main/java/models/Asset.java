@@ -1,5 +1,6 @@
 package models;
 
+import java.util.List;
 import java.util.UUID;
 
 public class Asset {
@@ -65,5 +66,9 @@ public class Asset {
 
     public Double totalPurchase() {
         return averagePrice * count;
+    }
+
+    public void modifyCurrentPrice(Double price) {
+        currentUnitPrice = price;
     }
 }

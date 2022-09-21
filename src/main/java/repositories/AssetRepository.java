@@ -41,10 +41,20 @@ public class AssetRepository {
     }
 
     public List<Asset> assets() {
-        return assets;
+        return assets.stream().filter(asset -> asset.count() > 0).toList();
     }
 
     public void removeById(UUID id) {
         assets.remove(getById(id));
+    }
+
+    public void updateCurrentPrices(List<Double> prices) {
+        if (assets.size() == 0) {
+            return;
+        }
+        
+        for (int i = 0; i < assets.size(); i += 1) {
+            assets.get(i).modifyCurrentPrice(prices.get(i));
+        }
     }
 }

@@ -4,6 +4,7 @@ import models.Asset;
 import models.Trading;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -99,23 +100,54 @@ class AssetServiceTest {
     void process() {
         AssetService assetService = new AssetService();
 
+        assetService.add("이런이름은 없지 주식1", 5000.0, 10.0, 6000.0);
+        List<Asset> assets = assetService.assets();
+        Asset asset1 = assets.get(assets.size() - 1);
+
         List<Trading> tradings = List.of(
-                new Trading("이런이름은 없지 주식1", "매수", 55000.0, 10.0),
                 new Trading("이런이름은 없지 주식2", "매수", 55000.0, 10.0),
-                new Trading("이런이름은 없지 주식2", "매도", 56000.0, 10.0),
-                new Trading("이런이름은 없지 주식1", "매도", 56000.0, 6.0),
-                new Trading("이런이름은 없지 주식1", "매수", 54000.0, 16.0)
+                new Trading("이런이름은 없지 주식1", "매수", 55000.0, 10.0),
+                new Trading("이런이름은 없지 주식1", "매도", 56000.0, 20.0),
+                new Trading("이런이름은 없지 주식2", "매도", 56000.0, 6.0),
+                new Trading("이런이름은 없지 주식2", "매수", 54000.0, 16.0)
         );
 
         assetService.process(tradings);
 
+        assets = assetService.assets();
+        Asset asset2 = assets.get(assets.size() - 1);
+
+        assertEquals("이런이름은 없지 주식2", asset2.name());
+        assertEquals(20.0, asset2.count());
+        assertEquals(53900.0, asset2.averagePrice());
+        assertEquals(54000.0, asset2.currentUnitPrice());
+
+        assetService.remove(assetService.getId(asset1));
+        assetService.remove(assetService.getId(asset2));
+    }
+
+    @Test
+    void updateCurrentPrices() {
+        AssetService assetService = new AssetService();
+
+        String name = "이런이름은 없지 주식";
+        Double averagePrice = 56000.0;
+        Double count = 10.0;
+        Double currentUnitPrice = 56000.0;
+
+        assetService.add(name, averagePrice, count, currentUnitPrice);
+
         List<Asset> assets = assetService.assets();
         Asset asset = assets.get(assets.size() - 1);
 
-        assertEquals("이런이름은 없지 주식1", assetService.name(asset.id()));
-        assertEquals(20.0, assetService.count(asset.id()));
-        assertEquals(53900.0, assetService.averagePrice(asset.id()));
-        assertEquals(54000.0, assetService.currentUnitPrice(asset.id()));
+        List<Double> prices = assetService.assets().stream().map(asset1 -> asset1.currentUnitPrice()).toList();
+
+        List<Double> modifiedPrices = new ArrayList<>(prices);
+        modifiedPrices.set(modifiedPrices.size() - 1, 50000.0);
+
+        assetService.updateCurrentPrices(modifiedPrices);
+
+        assertEquals(50000.0, assetService.currentUnitPrice(assetService.getId(asset)));
 
         assetService.remove(assetService.getId(asset));
     }
@@ -126,24 +158,29 @@ class AssetServiceTest {
 
         Double initialTotalPurchase = assetService.totalPurchase();
 
+        assetService.add("이런이름은 없지 주식1", 5000.0, 10.0, 6000.0);
+        List<Asset> assets = assetService.assets();
+        Asset asset1 = assets.get(assets.size() - 1);
+
         List<Trading> tradings = List.of(
-                new Trading("이런이름은 없지 주식1", "매수", 55000.0, 10.0),
                 new Trading("이런이름은 없지 주식2", "매수", 55000.0, 10.0),
-                new Trading("이런이름은 없지 주식2", "매도", 56000.0, 10.0),
-                new Trading("이런이름은 없지 주식1", "매도", 56000.0, 6.0),
-                new Trading("이런이름은 없지 주식1", "매수", 54000.0, 16.0)
+                new Trading("이런이름은 없지 주식1", "매수", 55000.0, 10.0),
+                new Trading("이런이름은 없지 주식1", "매도", 56000.0, 20.0),
+                new Trading("이런이름은 없지 주식2", "매도", 56000.0, 6.0),
+                new Trading("이런이름은 없지 주식2", "매수", 54000.0, 16.0)
         );
 
         assetService.process(tradings);
 
-        List<Asset> assets = assetService.assets();
-        Asset asset = assets.get(assets.size() - 1);
+        assets = assetService.assets();
+        Asset asset2 = assets.get(assets.size() - 1);
 
         Double totalPurchase = assetService.totalPurchase();
 
-        assertEquals(20.0 * 53900.0, totalPurchase - initialTotalPurchase);
+        assertEquals(55000.0 * 10.0 - 56000.0 * 6.0 + 54000.0 * 16.0, totalPurchase - initialTotalPurchase);
 
-        assetService.remove(assetService.getId(asset));
+        assetService.remove(assetService.getId(asset1));
+        assetService.remove(assetService.getId(asset2));
     }
 
     @Test
