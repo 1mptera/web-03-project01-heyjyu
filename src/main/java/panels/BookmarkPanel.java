@@ -59,7 +59,7 @@ public class BookmarkPanel extends JPanel {
     private void initTitle() {
         JLabel label = new JLabel("매매 일지");
         label.setForeground(Colors.FONT);
-        label.setFont(Fonts.BOLD);
+        label.setFont(Fonts.LARGE_BOLD);
         topPanel.add(label);
     }
 
@@ -191,7 +191,7 @@ public class BookmarkPanel extends JPanel {
         gridBagConstraints.gridy = 0;
 
         JButton deleteButton = new JButton(xIcon);
-        deleteButton.setFont(Fonts.BOLD);
+        deleteButton.setFont(Fonts.LARGE_BOLD);
         deleteButton.setBorderPainted(false);
         deleteButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
