@@ -112,11 +112,44 @@ class AssetServiceTest {
         List<Asset> assets = assetService.assets();
         Asset asset = assets.get(assets.size() - 1);
 
-        assertEquals("이런이름은 없지 주식1", asset.name());
-        assertEquals(20.0, asset.count());
-        assertEquals(53900.0, asset.averagePrice());
-        assertEquals(54000.0, asset.currentUnitPrice());
-        
+        assertEquals("이런이름은 없지 주식1", assetService.name(asset.id()));
+        assertEquals(20.0, assetService.count(asset.id()));
+        assertEquals(53900.0, assetService.averagePrice(asset.id()));
+        assertEquals(54000.0, assetService.currentUnitPrice(asset.id()));
+
         assetService.remove(assetService.getId(asset));
+    }
+
+    @Test
+    void totalPurchase() {
+        AssetService assetService = new AssetService();
+
+        Double initialTotalPurchase = assetService.totalPurchase();
+
+        List<Trading> tradings = List.of(
+                new Trading("이런이름은 없지 주식1", "매수", 55000.0, 10.0),
+                new Trading("이런이름은 없지 주식2", "매수", 55000.0, 10.0),
+                new Trading("이런이름은 없지 주식2", "매도", 56000.0, 10.0),
+                new Trading("이런이름은 없지 주식1", "매도", 56000.0, 6.0),
+                new Trading("이런이름은 없지 주식1", "매수", 54000.0, 16.0)
+        );
+
+        assetService.process(tradings);
+
+        List<Asset> assets = assetService.assets();
+        Asset asset = assets.get(assets.size() - 1);
+
+        Double totalPurchase = assetService.totalPurchase();
+
+        assertEquals(20.0 * 53900.0, totalPurchase - initialTotalPurchase);
+
+        assetService.remove(assetService.getId(asset));
+    }
+
+    @Test
+    void round() {
+        AssetService assetService = new AssetService();
+
+        assertEquals(18.22, assetService.round(18.2223445));
     }
 }

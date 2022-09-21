@@ -4,7 +4,6 @@ import models.Asset;
 import models.Trading;
 import repositories.AssetRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -66,5 +65,55 @@ public class AssetService {
 
             add(trading.name(), trading.unitPrice(), trading.count(), trading.unitPrice());
         }
+    }
+
+    public Double totalPurchase() {
+        if (assets().size() == 0) {
+            return 0.0;
+        }
+
+        return round(assets().stream()
+                .map(asset -> asset.totalPurchase())
+                .mapToDouble(value -> value)
+                .sum());
+    }
+
+    public Double income() {
+        return valuation() - totalPurchase();
+    }
+
+    public Double valuation() {
+        return round(repository.assets().stream()
+                .map(asset -> asset.valuation())
+                .mapToDouble(value -> value)
+                .sum());
+    }
+
+    public Double performance() {
+        if (totalPurchase() == 0.0) {
+            return 0.0;
+        }
+
+        return round(income() / totalPurchase() * 100);
+    }
+
+    public String name(UUID id) {
+        return repository.getById(id).name();
+    }
+
+    public double count(UUID id) {
+        return repository.getById(id).count();
+    }
+
+    public double averagePrice(UUID id) {
+        return repository.getById(id).averagePrice();
+    }
+
+    public double currentUnitPrice(UUID id) {
+        return repository.getById(id).currentUnitPrice();
+    }
+
+    public double round(double number) {
+        return Math.round(number * 100) / 100.0;
     }
 }

@@ -58,4 +58,12 @@ public class Asset {
             this.averagePrice = amount / this.count;
         }
     }
+
+    public Double valuation() {
+        return currentUnitPrice * count;
+    }
+
+    public Double totalPurchase() {
+        return averagePrice * count;
+    }
 }
