@@ -34,11 +34,12 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class JournalsPanel extends JPanel {
+    private JournalService journalService = new JournalService();
+
     private JPanel topPanel;
     private JournalingFrame journalingWindow;
     private JPanel journalsPanel;
     private JournalFrame journalWindow;
-    private JournalService journalService = new JournalService();
 
     public JournalsPanel() throws IOException {
         setLayout(new BorderLayout());
@@ -98,7 +99,7 @@ public class JournalsPanel extends JPanel {
     private void initTitle() {
         JLabel label = new JLabel("매매 일지");
         label.setForeground(Colors.FONT);
-        label.setFont(Fonts.BOLD);
+        label.setFont(Fonts.LARGE_BOLD);
         topPanel.add(label);
     }
 
@@ -230,7 +231,7 @@ public class JournalsPanel extends JPanel {
         gridBagConstraints.gridy = 0;
 
         JButton deleteButton = new JButton(xIcon);
-        deleteButton.setFont(Fonts.BOLD);
+        deleteButton.setFont(Fonts.LARGE_BOLD);
         deleteButton.setBorderPainted(false);
         deleteButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
