@@ -3,9 +3,7 @@ package panels;
 import application.JournalService;
 import frames.JournalFrame;
 import frames.JournalingFrame;
-import models.Journal;
 import models.Resources;
-import models.User;
 import repositories.JournalRepository;
 import themes.Colors;
 import themes.Fonts;
@@ -34,7 +32,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 public class JournalsPanel extends JPanel {

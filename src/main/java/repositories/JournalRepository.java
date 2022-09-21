@@ -30,7 +30,7 @@ public class JournalRepository {
 
     public Journal getById(UUID id) {
         Optional<Journal> element = journals.stream()
-                .filter(journal -> journal.getId().equals(id))
+                .filter(journal -> journal.id().equals(id))
                 .findFirst();
 
         if (element.isEmpty()) {

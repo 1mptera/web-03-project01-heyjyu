@@ -1,6 +1,5 @@
 package frames;
 
-import models.User;
 import panels.JournalsPanel;
 import panels.NavigatorPanel;
 
