@@ -40,7 +40,7 @@ public class JournalRepository {
         return element.get();
     }
 
-    public List<Journal> getJournals() {
+    public List<Journal> journals() {
         return journals;
     }
 

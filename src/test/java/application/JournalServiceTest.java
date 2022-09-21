@@ -68,6 +68,28 @@ class JournalServiceTest {
     }
 
     @Test
+    void starredId() {
+        JournalService journalService = new JournalService();
+
+        String title = "삼성전자 매수";
+        String content = "반도체 수요가 늘어날 것으로 예측되어 매수했다.";
+        List<Trading> tradings = List.of(new Trading("삼성전자", "매도", 56000.0, 10.0));
+
+        journalService.writeJournal(title, content, tradings);
+
+        List<Journal> journals = journalService.journals();
+        Journal journal = journals.get(journals.size() - 1);
+
+        assertFalse(journalService.getStarredIds().contains(journalService.getId(journal)));
+
+        journalService.toggleStar(journalService.getId(journal));
+
+        assertTrue(journalService.getStarredIds().contains(journalService.getId(journal)));
+
+        journalService.removeJournal(journalService.getId(journal));
+    }
+
+    @Test
     void date() {
         JournalService journalService = new JournalService();
 
