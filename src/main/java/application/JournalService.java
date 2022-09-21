@@ -42,7 +42,7 @@ public class JournalService {
         return repository.getById(journalId).title();
     }
 
-    public void removeJournal(UUID journalId) {
+    public void remove(UUID journalId) {
         repository.removeById(journalId);
     }
 
