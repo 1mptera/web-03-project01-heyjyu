@@ -236,7 +236,7 @@ public class JournalsPanel extends JPanel {
         deleteButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         deleteButton.addActionListener(event -> {
-            journalService.removeJournal((UUID) journalId);
+            journalService.remove((UUID) journalId);
 
             try {
                 updateJournalsPanel();

@@ -40,7 +40,7 @@ public class NavigatorPanel extends JPanel {
 
         button.addActionListener(event -> {
             try {
-                updateContentPanel(new JournalsPanel());
+                updateContentPanel(new panels.JournalsPanel());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -58,7 +58,7 @@ public class NavigatorPanel extends JPanel {
 
         button.addActionListener(event -> {
             try {
-                updateContentPanel(new BookmarkPanel());
+                updateContentPanel(new panels.BookmarkPanel());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -75,7 +75,7 @@ public class NavigatorPanel extends JPanel {
         applyTheme(button);
 
         button.addActionListener(event -> {
-            updateContentPanel(new MyAssetsPanel());
+            updateContentPanel(new panels.MyAssetsPanel());
         });
 
         add(button);
@@ -89,7 +89,7 @@ public class NavigatorPanel extends JPanel {
         applyTheme(button);
 
         button.addActionListener(event -> {
-            updateContentPanel(new WishListPanel());
+            updateContentPanel(new panels.WishListPanel());
         });
 
         add(button);
@@ -103,7 +103,7 @@ public class NavigatorPanel extends JPanel {
         applyTheme(button);
 
         button.addActionListener(event -> {
-            updateContentPanel(new GoalPanel());
+            updateContentPanel(new panels.GoalPanel());
         });
 
         add(button);

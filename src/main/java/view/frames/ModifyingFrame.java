@@ -8,92 +8,58 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class JournalFrame extends JFrame {
+public class ModifyingFrame extends JFrame {
     private UUID journalId;
 
     private JPanel contentPanel;
-    private JFrame revisingWindow;
-    private JPanel journalContentPanel;
+    private JTextArea textArea;
     private JournalService journalService = new JournalService();
 
-    public JournalFrame(UUID journalId) {
+    public ModifyingFrame(UUID journalId) {
         this.journalId = journalId;
 
-        setTitle("일지");
+        setTitle("일지 수정");
         setLayout(new GridLayout());
-        setSize(new Dimension(300, 500));
+        setSize(new Dimension(300, 300));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         initContentPanel();
-        initButton();
         initDate();
         initTitle();
-        initContent();
+        initField();
+        initButton();
     }
 
     private void initContentPanel() {
         contentPanel = new JPanel();
+
         contentPanel.setLayout(new GridBagLayout());
-        contentPanel.setBorder(new EmptyBorder(10, 20, 10, 0));
+        contentPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         contentPanel.setBackground(Colors.BACKGROUND);
 
         add(contentPanel);
-    }
-
-    private void initButton() {
-        GridBagConstraints gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.weightx = 1.0;
-
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-
-        JButton button = new JButton("수정");
-
-        button.addActionListener(event -> {
-            if (revisingWindow != null && revisingWindow.isDisplayable()) {
-                return;
-            }
-
-            revisingWindow = new RevisingFrame(journalId);
-
-            revisingWindow.setVisible(true);
-
-            revisingWindow.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosed(WindowEvent e) {
-                    updateJournalContentPanel();
-                }
-            });
-        });
-
-        panel.add(button);
-
-        panel.setOpaque(false);
-
-        contentPanel.add(panel, gridBagConstraints);
     }
 
     private void initDate() {
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.weightx = 1.0;
 
         LocalDate date = journalService.date(journalId);
@@ -118,7 +84,7 @@ public class JournalFrame extends JFrame {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new Insets(10, 0, 0, 0);
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.weightx = 1.0;
 
         JPanel panel = new JPanel(new BorderLayout());
@@ -134,46 +100,44 @@ public class JournalFrame extends JFrame {
         contentPanel.add(panel, gridBagConstraints);
     }
 
-    private void initContent() {
+    private void initField() {
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.fill = GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new Insets(10, 0, 0, 20);
+        gridBagConstraints.insets = new Insets(10, 0, 0, 0);
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
 
-        journalContentPanel = new JPanel(new BorderLayout());
+        textArea = new JTextArea();
+        textArea.setBorder(javax.swing.BorderFactory.createLineBorder(Color.WHITE, 5));
 
-        journalContentPanel.add(createJournalContentPanel(), BorderLayout.PAGE_START);
+        textArea.setText(journalService.content(journalId));
 
-        journalContentPanel.setOpaque(false);
-
-        contentPanel.add(journalContentPanel, gridBagConstraints);
+        contentPanel.add(new JScrollPane(textArea), gridBagConstraints);
     }
 
-    private JPanel createJournalContentPanel() {
-        JPanel journalPanel = new JPanel(new GridLayout(0, 1));
+    private void initButton() {
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.weightx = 1.0;
 
-        String[] lines = journalService.content(journalId).split("\\n");
+        JPanel panel = new JPanel();
 
-        for (String line : lines) {
-            JLabel contentLabel = new JLabel(line);
+        JButton button = new JButton("수정");
 
-            contentLabel.setForeground(Colors.FONT);
-            contentLabel.setFont(Fonts.SMALL);
-            journalPanel.add(contentLabel);
-        }
+        button.addActionListener(event -> {
+            journalService.modify(journalId, textArea.getText());
 
-        journalPanel.setOpaque(false);
+            dispose();
+        });
 
-        return journalPanel;
-    }
+        panel.add(button);
 
-    private void updateJournalContentPanel() {
-        journalContentPanel.removeAll();
-        journalContentPanel.add(createJournalContentPanel(), BorderLayout.PAGE_START);
-        journalContentPanel.setVisible(false);
-        journalContentPanel.setVisible(true);
+        panel.setOpaque(false);
+
+        contentPanel.add(panel, gridBagConstraints);
     }
 }

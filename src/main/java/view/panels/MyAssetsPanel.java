@@ -1,10 +1,12 @@
 package panels;
 
+import frames.RegisterAssetsFrame;
 import themes.Colors;
 import themes.Fonts;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,12 +19,15 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class MyAssetsPanel extends JPanel {
     private JPanel topPanel;
     private JPanel contentPanel;
     private JButton assetsTabButton;
     private JButton transactionTabButton;
+    private JFrame registerAssetsWindow;
 
     public MyAssetsPanel() {
         setLayout(new BorderLayout());
@@ -62,7 +67,20 @@ public class MyAssetsPanel extends JPanel {
         applyTheme(registerButton);
 
         registerButton.addActionListener(event -> {
-            //TODO
+            if (registerAssetsWindow != null && registerAssetsWindow.isDisplayable()) {
+                return;
+            }
+
+            registerAssetsWindow = new RegisterAssetsFrame();
+
+            registerAssetsWindow.setVisible(true);
+
+            registerAssetsWindow.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    updateContentPanel(new panels.AssetsPanel());
+                }
+            });
         });
 
         return registerButton;
@@ -101,8 +119,7 @@ public class MyAssetsPanel extends JPanel {
         contentPanel = new JPanel();
 
         contentPanel.setLayout(new GridLayout());
-        contentPanel.add(new AssetsPanel());
-        // TODO contentPanel.add()
+        contentPanel.add(new panels.AssetsPanel());
 
         contentPanel.setOpaque(false);
 
@@ -146,7 +163,7 @@ public class MyAssetsPanel extends JPanel {
             assetsTabButton.setFont(Fonts.MEDIUM_BOLD);
             transactionTabButton.setFont(Fonts.MEDIUM);
 
-            updateContentPanel(new AssetsPanel());
+            updateContentPanel(new panels.AssetsPanel());
         });
 
         return assetsTabButton;
@@ -163,7 +180,7 @@ public class MyAssetsPanel extends JPanel {
             assetsTabButton.setFont(Fonts.MEDIUM);
             transactionTabButton.setFont(Fonts.MEDIUM_BOLD);
 
-            updateContentPanel(new TransactionsPanel());
+            updateContentPanel(new panels.TransactionsPanel());
         });
 
         return transactionTabButton;

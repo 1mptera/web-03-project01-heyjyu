@@ -28,7 +28,7 @@ class JournalServiceTest {
 
         assertEquals(previousCount + 1, journalService.journals().size());
 
-        journalService.removeJournal(journalService.getId(journal));
+        journalService.remove(journalService.getId(journal));
     }
 
     @Test
@@ -46,7 +46,7 @@ class JournalServiceTest {
 
         assertTrue(journalService.getIds().contains(journalService.getId(journal)));
 
-        journalService.removeJournal(journalService.getId(journal));
+        journalService.remove(journalService.getId(journal));
     }
 
     @Test
@@ -64,7 +64,7 @@ class JournalServiceTest {
 
         assertEquals(journal.id(), journalService.getId(journal));
 
-        journalService.removeJournal(journalService.getId(journal));
+        journalService.remove(journalService.getId(journal));
     }
 
     @Test
@@ -86,7 +86,7 @@ class JournalServiceTest {
 
         assertTrue(journalService.getStarredIds().contains(journalService.getId(journal)));
 
-        journalService.removeJournal(journalService.getId(journal));
+        journalService.remove(journalService.getId(journal));
     }
 
     @Test
@@ -104,7 +104,7 @@ class JournalServiceTest {
 
         assertEquals(LocalDate.now(), journalService.date(journalService.getId(journal)));
 
-        journalService.removeJournal(journalService.getId(journal));
+        journalService.remove(journalService.getId(journal));
     }
 
     @Test
@@ -122,7 +122,7 @@ class JournalServiceTest {
 
         assertEquals("삼성전자 매수", journalService.title(journalService.getId(journal)));
 
-        journalService.removeJournal(journalService.getId(journal));
+        journalService.remove(journalService.getId(journal));
     }
 
     @Test
@@ -138,7 +138,7 @@ class JournalServiceTest {
         List<Journal> journals = journalService.journals();
         Journal journal = journals.get(journals.size() - 1);
 
-        journalService.removeJournal(journalService.getId(journal));
+        journalService.remove(journalService.getId(journal));
 
         assertFalse(journalService.journals().contains(journal));
     }
@@ -158,7 +158,7 @@ class JournalServiceTest {
 
         assertEquals(false, journalService.starred(journalService.getId(journal)));
 
-        journalService.removeJournal(journalService.getId(journal));
+        journalService.remove(journalService.getId(journal));
     }
 
     @Test
@@ -176,7 +176,7 @@ class JournalServiceTest {
 
         assertEquals("반도체 수요가 늘어날 것으로 예측되어 매수했다.", journalService.content(journalService.getId(journal)));
 
-        journalService.removeJournal(journalService.getId(journal));
+        journalService.remove(journalService.getId(journal));
     }
 
     @Test
@@ -196,7 +196,7 @@ class JournalServiceTest {
 
         assertEquals("내용 수정.", journalService.content(journalService.getId(journal)));
 
-        journalService.removeJournal(journalService.getId(journal));
+        journalService.remove(journalService.getId(journal));
     }
 
     @Test
@@ -216,6 +216,6 @@ class JournalServiceTest {
 
         assertEquals(true, journalService.starred(journalService.getId(journal)));
 
-        journalService.removeJournal(journalService.getId(journal));
+        journalService.remove(journalService.getId(journal));
     }
 }
