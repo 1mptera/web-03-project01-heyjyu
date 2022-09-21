@@ -35,7 +35,7 @@ public class Resources {
         }
 
         try {
-            STAR_FILLED_IMAGE = ImageIO.read(new File("src/main/resources/images/iconmonstr-star-5-32.png"));
+            STAR_FILLED_IMAGE = ImageIO.read(new File("src/main/resources/images/iconmonstr-star-filled-32.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
