@@ -3,9 +3,9 @@ package models;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class JournalTest {
 
@@ -50,7 +50,7 @@ class JournalTest {
     }
 
     @Test
-    void write() {
+    void modify() {
         LocalDate date = LocalDate.of(2022, 9, 19);
         String title = "익절";
         String content = "";
@@ -58,8 +58,19 @@ class JournalTest {
 
         assertEquals("", journal.content());
 
-        journal.write("지수가 안 좋아지고 있어서 수익권에 있던 주식들을 모두 매도했다.");
+        journal.modify("지수가 안 좋아지고 있어서 수익권에 있던 주식들을 모두 매도했다.");
 
         assertEquals("지수가 안 좋아지고 있어서 수익권에 있던 주식들을 모두 매도했다.", journal.content());
+    }
+
+    @Test
+    void id() {
+        LocalDate date = LocalDate.of(2022, 9, 19);
+        String title = "익절";
+        String content = "";
+        Journal journal1 = new Journal(date, title, content);
+        Journal journal2 = new Journal(date, title, content);
+
+        assertNotEquals(journal1.getId(), journal2.getId());
     }
 }
