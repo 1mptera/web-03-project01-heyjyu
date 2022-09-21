@@ -73,7 +73,7 @@ public class BookmarkPanel extends JPanel {
 
             JPanel messagePanel = new JPanel();
 
-            messagePanel.add(new JLabel("일지를 작성해주세요!"));
+            messagePanel.add(new JLabel("자주 보고 싶은 일지를 즐겨찾기 해주세요!"));
 
             messagePanel.setOpaque(false);
 
@@ -212,25 +212,9 @@ public class BookmarkPanel extends JPanel {
         return panel;
     }
 
-    private void initJournalsPanel() throws IOException {
+    private void initJournalsPanel() {
         journalsPanel = new JPanel();
         journalsPanel.setLayout(new BorderLayout());
-
-        if (journalService.journals().size() == 0) {
-            JPanel messagePanel = new JPanel();
-
-            messagePanel.add(new JLabel("자주 보고 싶은 일지를 즐겨찾기 해주세요!"));
-
-            messagePanel.setOpaque(false);
-
-            journalsPanel.add(messagePanel, BorderLayout.PAGE_START);
-
-            journalsPanel.setOpaque(false);
-
-            add(journalsPanel, BorderLayout.CENTER);
-
-            return;
-        }
 
         journalsPanel.add(createJournalsPanel(), BorderLayout.PAGE_START);
 
