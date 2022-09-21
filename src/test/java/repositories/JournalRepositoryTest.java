@@ -25,6 +25,8 @@ class JournalRepositoryTest {
         journalRepository.add(journal);
 
         assertEquals(journal, journalRepository.getById(id));
+
+        journalRepository.removeById(id);
     }
 
     @Test
@@ -42,7 +44,7 @@ class JournalRepositoryTest {
 
         journalRepository.removeById(id);
 
-        assertEquals(List.of(), journalRepository.getJournals());
+        assertNull(journalRepository.getById(id));
     }
 
     @Test
@@ -61,5 +63,7 @@ class JournalRepositoryTest {
         journalRepository.updateById(id, "내용 수정했다.");
 
         assertEquals("내용 수정했다.", journalRepository.getById(id).content());
+
+        journalRepository.removeById(id);
     }
 }

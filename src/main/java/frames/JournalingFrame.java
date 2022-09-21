@@ -1,5 +1,6 @@
 package frames;
 
+import application.JournalService;
 import models.User;
 import models.Journal;
 import models.Trading;
@@ -31,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JournalingFrame extends JFrame {
-    private User user;
     private List<Trading> tradings = new ArrayList<>();
 
     private JPanel contentPanel;
@@ -44,9 +44,9 @@ public class JournalingFrame extends JFrame {
     private JTextField unitPriceField;
     private JTextField countField;
     private JPanel tradingPanel;
+    private JournalService journalService = new JournalService();
 
-    public JournalingFrame(User user) {
-        this.user = user;
+    public JournalingFrame() {
         setTitle("일지 작성");
         setLayout(new GridLayout());
         setSize(new Dimension(300, 500));
@@ -266,7 +266,7 @@ public class JournalingFrame extends JFrame {
                 return;
             }
 
-            user.writeJournal(new Journal(LocalDate.now(), title, content));
+            journalService.writeJournal(title, content);
 
             dispose();
         });

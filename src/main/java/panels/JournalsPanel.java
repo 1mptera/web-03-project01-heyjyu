@@ -1,10 +1,12 @@
 package panels;
 
+import application.JournalService;
 import frames.JournalFrame;
 import frames.JournalingFrame;
 import models.Journal;
 import models.Resources;
 import models.User;
+import repositories.JournalRepository;
 import themes.Colors;
 import themes.Fonts;
 
@@ -33,19 +35,19 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 public class JournalsPanel extends JPanel {
-    private User user;
-    private List<Journal> journals;
+    private JournalRepository journalRepository;
 
     private JPanel topPanel;
     private JournalingFrame journalingWindow;
     private JPanel journalsPanel;
     private JournalFrame journalWindow;
+    private JournalService journalService = new JournalService();
 
-    public JournalsPanel(User user) throws IOException {
-        this.user = user;
-        this.journals = user.journals();
+    public JournalsPanel() throws IOException {
+        journalRepository = JournalRepository.getInstance();
         setLayout(new BorderLayout());
         setOpaque(false);
 
@@ -80,7 +82,7 @@ public class JournalsPanel extends JPanel {
                 return;
             }
 
-            journalingWindow = new JournalingFrame(user);
+            journalingWindow = new JournalingFrame();
 
             journalingWindow.setVisible(true);
 
@@ -113,8 +115,8 @@ public class JournalsPanel extends JPanel {
         panel.setLayout(new GridLayout(0, 1));
         panel.setBorder(new EmptyBorder(10, 0, 0, 0));
 
-        for (Journal journal : journals) {
-            panel.add(createJournalPanel(journal));
+        for (Object id : journalService.getIds()) {
+            panel.add(createJournalPanel(id));
         }
 
         panel.setOpaque(false);
@@ -135,8 +137,8 @@ public class JournalsPanel extends JPanel {
         return jScrollPane;
     }
 
-    private JPanel createJournalPanel(Journal journal) {
-        LocalDate date = journal.date();
+    private JPanel createJournalPanel(Object journalId) {
+        LocalDate date = journalService.date((UUID) journalId);
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -148,7 +150,7 @@ public class JournalsPanel extends JPanel {
         gridBagConstraints.weightx = 1.0;
 
         JButton button = new JButton(
-                "<html>" + date.getDayOfMonth() + " " + date.getMonth() + "<br>" + journal.title() + "</html>");
+                "<html>" + date.getDayOfMonth() + " " + date.getMonth() + "<br>" + journalService.title((UUID) journalId) + "</html>");
         button.setFont(Fonts.MEDIUM);
         button.setHorizontalAlignment(JButton.LEFT);
         button.setBorderPainted(false);
@@ -159,7 +161,7 @@ public class JournalsPanel extends JPanel {
                 return;
             }
 
-            journalWindow = new JournalFrame(journal);
+            journalWindow = new JournalFrame((UUID) journalId);
 
             journalWindow.setVisible(true);
 
@@ -179,7 +181,7 @@ public class JournalsPanel extends JPanel {
 
         Image starImage = Resources.STAR_LINED_IMAGE;
 
-        if (journal.starred()) {
+        if (journalService.starred((UUID) journalId)) {
             starImage = Resources.STAR_FILLED_IMAGE;
         }
 
@@ -196,7 +198,7 @@ public class JournalsPanel extends JPanel {
         starButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         starButton.addActionListener(event -> {
-            journal.toggleStar();
+            journalService.toggleStar((UUID) journalId);
 
             try {
                 updateJournalsPanel();
@@ -219,7 +221,7 @@ public class JournalsPanel extends JPanel {
         deleteButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         deleteButton.addActionListener(event -> {
-            user.removeJournal(journal);
+            journalService.removeJournal((UUID) journalId);
 
             try {
                 updateJournalsPanel();
@@ -239,7 +241,7 @@ public class JournalsPanel extends JPanel {
         journalsPanel = new JPanel();
         journalsPanel.setLayout(new BorderLayout());
 
-        if (journals.size() == 0) {
+        if (journalService.journals().size() == 0) {
             JPanel messagePanel = new JPanel();
 
             messagePanel.add(new JLabel("일지를 작성해주세요!"));

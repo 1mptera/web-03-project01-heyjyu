@@ -33,6 +33,10 @@ public class JournalRepository {
                 .filter(journal -> journal.getId().equals(id))
                 .findFirst();
 
+        if (element.isEmpty()) {
+            return null;
+        }
+
         return element.get();
     }
 

@@ -1,5 +1,6 @@
 package frames;
 
+import application.JournalService;
 import models.Journal;
 import themes.Colors;
 import themes.Fonts;
@@ -20,15 +21,19 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class JournalFrame extends JFrame {
-    private Journal journal;
+    private UUID journalId;
+
     private JPanel contentPanel;
     private JFrame revisingWindow;
     private JPanel journalContentPanel;
+    private JournalService journalService = new JournalService();
 
-    public JournalFrame(Journal journal) {
-        this.journal = journal;
+    public JournalFrame(UUID journalId) {
+        this.journalId = journalId;
+
         setTitle("일지");
         setLayout(new GridLayout());
         setSize(new Dimension(300, 500));
@@ -67,7 +72,7 @@ public class JournalFrame extends JFrame {
                 return;
             }
 
-            revisingWindow = new RevisingFrame(journal);
+            revisingWindow = new RevisingFrame(journalId);
 
             revisingWindow.setVisible(true);
 
@@ -93,7 +98,7 @@ public class JournalFrame extends JFrame {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.weightx = 1.0;
 
-        LocalDate date = journal.date();
+        LocalDate date = journalService.date(journalId);
 
         JLabel label = new JLabel(date.getYear() + " " + date.getMonth() + " " + date.getDayOfMonth(), JLabel.LEFT);
 
@@ -119,7 +124,7 @@ public class JournalFrame extends JFrame {
         gridBagConstraints.weightx = 1.0;
 
         JPanel panel = new JPanel(new BorderLayout());
-        JLabel titleLabel = new JLabel(journal.title());
+        JLabel titleLabel = new JLabel(journalService.title(journalId));
 
         titleLabel.setForeground(Colors.FONT);
         titleLabel.setFont(Fonts.LARGE);
@@ -152,7 +157,7 @@ public class JournalFrame extends JFrame {
     private JPanel createJournalContentPanel() {
         JPanel journalPanel = new JPanel(new GridLayout(0, 1));
 
-        String[] lines = journal.content().split("\\n");
+        String[] lines = journalService.content(journalId).split("\\n");
 
         for (String line : lines) {
             JLabel contentLabel = new JLabel(line);
