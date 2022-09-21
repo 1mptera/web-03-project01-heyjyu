@@ -1,13 +1,9 @@
 import frames.MainFrame;
-import models.InvestGod;
-import models.User;
 
 import javax.swing.JFrame;
 import java.io.IOException;
 
 public class Main {
-    private InvestGod investGod;
-
     public static void main(String[] args) throws IOException {
         Main application = new Main();
 
@@ -15,17 +11,8 @@ public class Main {
     }
 
     private void run() throws IOException {
-        loadData();
-
-        JFrame mainFrame = new MainFrame(investGod);
+        JFrame mainFrame = new MainFrame();
 
         mainFrame.setVisible(true);
-    }
-
-    private void loadData() {
-        investGod = new InvestGod();
-
-        investGod.loadUser();
-        investGod.loadJournals();
     }
 }

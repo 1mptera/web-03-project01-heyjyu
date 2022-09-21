@@ -17,11 +17,10 @@ import java.io.IOException;
 
 public class NavigatorPanel extends JPanel {
     private JPanel contentPanel;
-    private User user;
 
-    public NavigatorPanel(JPanel contentPanel, User user) throws IOException {
+    public NavigatorPanel(JPanel contentPanel) throws IOException {
         this.contentPanel = contentPanel;
-        this.user = user;
+
         setPreferredSize(new Dimension(400, 70));
         setLayout(new GridLayout(1, 5));
         setBackground(new Color(0, 37, 88));
@@ -33,7 +32,7 @@ public class NavigatorPanel extends JPanel {
         initGoalButton();
     }
 
-    private void initJournalButton() throws IOException {
+    private void initJournalButton() {
         Image image = Resources.FILE_IMAGE;
         Icon icon = new ImageIcon(image);
         JButton button = new JButton("일지", icon);
@@ -42,7 +41,7 @@ public class NavigatorPanel extends JPanel {
 
         button.addActionListener(event -> {
             try {
-                updateContentPanel(new JournalsPanel(user));
+                updateContentPanel(new JournalsPanel());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -51,7 +50,7 @@ public class NavigatorPanel extends JPanel {
         add(button);
     }
 
-    private void initBookmarkButton() throws IOException {
+    private void initBookmarkButton() {
         Image image = Resources.STAR_IMAGE;
         Icon icon = new ImageIcon(image);
         JButton button = new JButton("즐겨찾기", icon);
@@ -65,7 +64,7 @@ public class NavigatorPanel extends JPanel {
         add(button);
     }
 
-    private void initMyAssetsButton() throws IOException {
+    private void initMyAssetsButton() {
         Image image = Resources.BANKNOTE_IMAGE;
         Icon icon = new ImageIcon(image);
         JButton button = new JButton("나의 자산", icon);
@@ -79,7 +78,7 @@ public class NavigatorPanel extends JPanel {
         add(button);
     }
 
-    private void initWishListButton() throws IOException {
+    private void initWishListButton() {
         Image image = Resources.HEART_IMAGE;
         Icon icon = new ImageIcon(image);
         JButton button = new JButton("관심", icon);
@@ -93,7 +92,7 @@ public class NavigatorPanel extends JPanel {
         add(button);
     }
 
-    private void initGoalButton() throws IOException {
+    private void initGoalButton() {
         Image image = Resources.MEDAL_IMAGE;
         Icon icon = new ImageIcon(image);
         JButton button = new JButton("목표", icon);

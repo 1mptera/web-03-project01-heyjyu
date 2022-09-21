@@ -1,5 +1,6 @@
 package frames;
 
+import application.JournalService;
 import models.Journal;
 import themes.Colors;
 import themes.Fonts;
@@ -20,14 +21,17 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class RevisingFrame extends JFrame {
-    private JPanel contentPanel;
-    private Journal journal;
-    private JTextArea textArea;
+    private UUID journalId;
 
-    public RevisingFrame(Journal journal) {
-        this.journal = journal;
+    private JPanel contentPanel;
+    private JTextArea textArea;
+    private JournalService journalService = new JournalService();
+
+    public RevisingFrame(UUID journalId) {
+        this.journalId = journalId;
 
         setTitle("일지 수정");
         setLayout(new GridLayout());
@@ -59,7 +63,7 @@ public class RevisingFrame extends JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.weightx = 1.0;
 
-        LocalDate date = journal.date();
+        LocalDate date = journalService.date(journalId);
 
         JLabel label = new JLabel(date.getYear() + " " + date.getMonth() + " " + date.getDayOfMonth(), JLabel.LEFT);
 
@@ -85,7 +89,7 @@ public class RevisingFrame extends JFrame {
         gridBagConstraints.weightx = 1.0;
 
         JPanel panel = new JPanel(new BorderLayout());
-        JLabel titleLabel = new JLabel(journal.title());
+        JLabel titleLabel = new JLabel(journalService.title(journalId));
 
         titleLabel.setForeground(Colors.FONT);
         titleLabel.setFont(Fonts.LARGE);
@@ -109,7 +113,7 @@ public class RevisingFrame extends JFrame {
         textArea = new JTextArea();
         textArea.setBorder(javax.swing.BorderFactory.createLineBorder(Color.WHITE, 5));
 
-        textArea.setText(journal.content());
+        textArea.setText(journalService.content(journalId));
 
         contentPanel.add(new JScrollPane(textArea), gridBagConstraints);
     }
@@ -126,7 +130,7 @@ public class RevisingFrame extends JFrame {
         JButton button = new JButton("수정");
 
         button.addActionListener(event -> {
-            journal.modify(textArea.getText());
+            journalService.modify(journalId, textArea.getText());
 
             dispose();
         });
