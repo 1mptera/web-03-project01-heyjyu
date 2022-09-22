@@ -61,7 +61,7 @@ class AssetTest {
 
         assertEquals(550000.0, asset.valuation());
     }
-    
+
     @Test
     void modifyCurrentPrice() {
         String name = "삼성전자";
@@ -86,5 +86,13 @@ class AssetTest {
         Asset asset = new Asset(name, averagePrice, count, currentUnitPrice);
 
         assertEquals(56000.0 * 10.0, asset.totalPurchase());
+    }
+
+    @Test
+    void compare() {
+        Asset asset1 = new Asset("삼성전자", 30000.0, 100.0, 55000.0);
+        Asset asset2 = new Asset("애플", 150000.0, 1.0, 200000.0);
+
+        assertEquals(1, asset1.compareTo(asset2));
     }
 }
