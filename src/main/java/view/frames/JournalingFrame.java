@@ -44,11 +44,11 @@ public class JournalingFrame extends JFrame {
     private TradingService tradingService;
     private AssetService assetService;
 
-    public JournalingFrame(JournalService journalService, TradingService tradingService, AssetService assetService) {
+    public JournalingFrame(JournalService journalService, AssetService assetService) {
         this.journalService = journalService;
-        this.tradingService = tradingService;
+        this.tradingService = new TradingService();
         this.assetService = assetService;
-        
+
         setTitle("일지 작성");
         setLayout(new GridLayout());
         setSize(new Dimension(300, 500));

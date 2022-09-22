@@ -18,8 +18,8 @@ public class AssetRepository {
         return List.of(); //TODO get from file
     }
 
-    public void add(Asset journal) {
-        assets.add(journal);
+    public void add(Asset asset) {
+        assets.add(asset);
     }
 
     public Asset getById(UUID id) {

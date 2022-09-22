@@ -30,6 +30,7 @@ public class JournalModifyingFrame extends JFrame {
     private JournalService journalService;
 
     public JournalModifyingFrame(JournalService journalService, UUID journalId) {
+        this.journalService = journalService;
         this.journalId = journalId;
 
         setTitle("일지 수정");

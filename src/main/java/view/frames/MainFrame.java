@@ -6,6 +6,7 @@ import application.GoalService;
 import application.JournalService;
 import application.PortfolioService;
 import application.TradingService;
+import application.TransactionService;
 import application.UserService;
 import panels.JournalsPanel;
 import panels.NavigatorPanel;
@@ -20,25 +21,25 @@ import java.io.IOException;
 
 public class MainFrame extends JFrame {
     private JournalService journalService;
-    private TradingService tradingService;
     private AccountService accountService;
     private UserService userService;
     private AssetService assetService;
     private PortfolioService portfolioService;
     private GoalService goalService;
+    private TransactionService transactionService;
 
     private JPanel contentPanel;
 
-    public MainFrame(JournalService journalService, TradingService tradingService,
-                     AccountService accountService, UserService userService,
-                     AssetService assetService, PortfolioService portfolioService, GoalService goalService) throws IOException {
+    public MainFrame(JournalService journalService, AccountService accountService, UserService userService,
+                     AssetService assetService, PortfolioService portfolioService, GoalService goalService,
+                     TransactionService transactionService) throws IOException {
         this.journalService = journalService;
-        this.tradingService = tradingService;
         this.accountService = accountService;
         this.userService = userService;
         this.assetService = assetService;
         this.portfolioService = portfolioService;
         this.goalService = goalService;
+        this.transactionService = transactionService;
 
         setTitle("Invest God");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,7 +70,7 @@ public class MainFrame extends JFrame {
     }
 
     private void initJournalsPanel() throws IOException {
-        contentPanel.add(new JournalsPanel(journalService, tradingService, assetService));
+        contentPanel.add(new JournalsPanel(journalService, assetService));
     }
 
     private void initNavigatorPanel() throws IOException {
@@ -77,7 +78,7 @@ public class MainFrame extends JFrame {
         gridBagConstraints.fill = GridBagConstraints.BOTH;
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        add(new NavigatorPanel(contentPanel, journalService, tradingService,
-                accountService, userService, assetService, portfolioService, goalService), gridBagConstraints);
+        add(new NavigatorPanel(contentPanel, journalService,
+                accountService, userService, assetService, portfolioService, goalService, transactionService), gridBagConstraints);
     }
 }
