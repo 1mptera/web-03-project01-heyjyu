@@ -39,7 +39,7 @@ public class MyAssetsPanel extends JPanel {
         initButtons();
         initTitle();
         initTabs();
-        initScrollPanel();
+        initContentPanel();
     }
 
     private void initTopPanel() {
@@ -130,7 +130,7 @@ public class MyAssetsPanel extends JPanel {
         topPanel.add(label);
     }
 
-    private JScrollPane createScrollPanel() {
+    private void initContentPanel() {
         contentPanel = new JPanel();
 
         contentPanel.setLayout(new GridLayout());
@@ -138,20 +138,14 @@ public class MyAssetsPanel extends JPanel {
 
         contentPanel.setOpaque(false);
 
-        JPanel wrapperPanel = new JPanel();
-        wrapperPanel.setLayout(new BorderLayout());
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
 
-        wrapperPanel.add(contentPanel, BorderLayout.PAGE_START);
+        panel.add(contentPanel, BorderLayout.PAGE_START);
 
-        wrapperPanel.setOpaque(false);
+        panel.setOpaque(false);
 
-        JScrollPane scrollPane = new JScrollPane(wrapperPanel);
-        scrollPane.setPreferredSize(new Dimension(300, 500));
-        scrollPane.setBorder(null);
-
-        scrollPane.setOpaque(false);
-
-        return scrollPane;
+        add(panel, BorderLayout.CENTER);
     }
 
     private void initTabs() {
@@ -199,17 +193,6 @@ public class MyAssetsPanel extends JPanel {
         });
 
         return transactionTabButton;
-    }
-
-    private void initScrollPanel() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-
-        panel.add(createScrollPanel(), BorderLayout.PAGE_START);
-
-        panel.setOpaque(false);
-
-        add(panel, BorderLayout.CENTER);
     }
 
     private void updateContentPanel(JPanel panel) {

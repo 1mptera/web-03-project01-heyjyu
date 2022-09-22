@@ -12,6 +12,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -30,6 +31,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 public class AssetsPanel extends JPanel {
     private AccountService accountService = new AccountService();
@@ -39,6 +41,7 @@ public class AssetsPanel extends JPanel {
 
     private JPanel amountPanel;
     private JPanel portFolioPanel;
+    private JPanel listPanel;
 
     public AssetsPanel() {
         setLayout(new GridBagLayout());
@@ -46,7 +49,7 @@ public class AssetsPanel extends JPanel {
 
         initAmount();
         initPortFolio();
-//        initAssets();
+        initAssets();
     }
 
     private void initAmount() {
@@ -89,6 +92,33 @@ public class AssetsPanel extends JPanel {
         portFolioPanel.setOpaque(false);
 
         add(portFolioPanel, gridBagConstraints);
+    }
+
+    private void initAssets() {
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new Insets(0, 10, 0, 0);
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+
+        listPanel = new JPanel();
+        listPanel.setLayout(new GridLayout(0, 1));
+
+        for (Asset asset : assetService.assets()) {
+            listPanel.add(createAssetPanel(asset.id()));
+        }
+
+        listPanel.setOpaque(false);
+
+        JScrollPane scrollPane = new JScrollPane(listPanel);
+        scrollPane.setPreferredSize(new Dimension(300, 190));
+        scrollPane.setBorder(null);
+
+        scrollPane.setOpaque(false);
+
+        add(scrollPane, gridBagConstraints);
     }
 
     private JPanel createAmountPanel() {
@@ -161,6 +191,47 @@ public class AssetsPanel extends JPanel {
         wrapperPanel.setOpaque(false);
 
         panel.add(wrapperPanel);
+
+        panel.setOpaque(false);
+
+        return panel;
+    }
+
+    private JPanel createAssetPanel(UUID id) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(3, 2));
+        panel.setPreferredSize(new Dimension(280, 120));
+        panel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(210, 210, 210)));
+
+        JPanel innerPanel1 = new JPanel();
+        innerPanel1.setLayout(new GridLayout(1, 2));
+
+        JLabel nameLabel = new JLabel(assetService.name(id));
+        nameLabel.setFont(Fonts.MEDIUM_BOLD);
+        innerPanel1.add(nameLabel);
+        innerPanel1.add(new JLabel("<html>" + "평가손익 " + assetService.income(id) + "원" + "<br>" + "수익률 " + assetService.performance(id) + "%" + "</html>"));
+
+        innerPanel1.setOpaque(false);
+
+        JPanel innerPanel2 = new JPanel();
+        innerPanel2.setLayout(new GridLayout(1, 2));
+
+        innerPanel2.add(new JLabel("<html>" + assetService.count(id) + "<br>" + "보유수량" + "</html>"));
+        innerPanel2.add(new JLabel("<html>" + assetService.averagePrice(id) + "원" + "<br>" + "매수평균가" + "</html>"));
+
+        innerPanel2.setOpaque(false);
+
+        JPanel innerPanel3 = new JPanel();
+        innerPanel3.setLayout(new GridLayout(1, 2));
+
+        innerPanel3.add(new JLabel("<html>" + assetService.valuation(id) + "원" + "<br>" + "평가금액" + "</html>"));
+        innerPanel3.add(new JLabel("<html>" + assetService.totalPurchase(id) + "원" + "<br>" + "매수금액" + "</html>"));
+
+        innerPanel3.setOpaque(false);
+
+        panel.add(innerPanel1);
+        panel.add(innerPanel2);
+        panel.add(innerPanel3);
 
         panel.setOpaque(false);
 
