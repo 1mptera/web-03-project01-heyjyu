@@ -3,11 +3,13 @@ package panels;
 import application.AccountService;
 import application.AssetService;
 import application.PortfolioService;
+import application.TransactionService;
 import application.UserService;
 import frames.RegisterAssetsFrame;
 import themes.Colors;
 import themes.Fonts;
 import view.frames.CurrentPriceModifyingFrame;
+import view.frames.TransactionsFrame;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -32,16 +34,21 @@ public class MyAssetsPanel extends JPanel {
     private JButton transactionTabButton;
     private JFrame registerAssetsWindow;
     private JFrame currentPriceModifyingWindow;
+    private JFrame transactionsWindow;
+
     private AccountService accountService;
     private UserService userService;
     private AssetService assetService;
     private PortfolioService portfolioService;
+    private TransactionService transactionService;
 
-    public MyAssetsPanel(AccountService accountService, UserService userService, AssetService assetService, PortfolioService portfolioService) {
+    public MyAssetsPanel(AccountService accountService, UserService userService,
+                         AssetService assetService, PortfolioService portfolioService, TransactionService transactionService) {
         this.accountService = accountService;
         this.userService = userService;
         this.assetService = assetService;
         this.portfolioService = portfolioService;
+        this.transactionService = transactionService;
 
         setLayout(new BorderLayout());
         setOpaque(false);
@@ -104,7 +111,20 @@ public class MyAssetsPanel extends JPanel {
         applyTheme(registerButton);
 
         registerButton.addActionListener(event -> {
-            //TODO
+            if (transactionsWindow != null && transactionsWindow.isDisplayable()) {
+                return;
+            }
+
+            transactionsWindow = new TransactionsFrame(accountService, transactionService);
+
+            transactionsWindow.setVisible(true);
+
+            transactionsWindow.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    updateContentPanel(new panels.AssetsPanel(accountService, userService, assetService, portfolioService));
+                }
+            });
         });
 
         return registerButton;

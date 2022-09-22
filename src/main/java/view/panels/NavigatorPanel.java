@@ -6,6 +6,7 @@ import application.GoalService;
 import application.JournalService;
 import application.PortfolioService;
 import application.TradingService;
+import application.TransactionService;
 import application.UserService;
 import models.Resources;
 import themes.Colors;
@@ -24,28 +25,27 @@ import java.io.IOException;
 
 public class NavigatorPanel extends JPanel {
     private JournalService journalService;
-    private TradingService tradingService;
     private AssetService assetService;
     private AccountService accountService;
     private UserService userService;
     private PortfolioService portfolioService;
     private GoalService goalService;
+    private TransactionService transactionService;
 
     private JPanel contentPanel;
 
-    public NavigatorPanel(JPanel contentPanel, JournalService journalService,
-                          TradingService tradingService, AccountService accountService,
+    public NavigatorPanel(JPanel contentPanel, JournalService journalService, AccountService accountService,
                           UserService userService, AssetService assetService,
-                          PortfolioService portfolioService, GoalService goalService) throws IOException {
+                          PortfolioService portfolioService, GoalService goalService, TransactionService transactionService) throws IOException {
         this.contentPanel = contentPanel;
 
         this.journalService = journalService;
-        this.tradingService = tradingService;
         this.accountService = accountService;
         this.userService = userService;
         this.assetService = assetService;
         this.portfolioService = portfolioService;
         this.goalService = goalService;
+        this.transactionService = transactionService;
 
         setPreferredSize(new Dimension(400, 70));
         setLayout(new GridLayout(1, 5));
@@ -54,7 +54,7 @@ public class NavigatorPanel extends JPanel {
         initJournalButton();
         initBookmarkButton();
         initMyAssetsButton();
-        initWishListButton();
+//        initWishListButton();
         initGoalButton();
     }
 
@@ -67,7 +67,7 @@ public class NavigatorPanel extends JPanel {
 
         button.addActionListener(event -> {
             try {
-                updateContentPanel(new panels.JournalsPanel(journalService, tradingService, assetService));
+                updateContentPanel(new panels.JournalsPanel(journalService, assetService));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -102,7 +102,7 @@ public class NavigatorPanel extends JPanel {
         applyTheme(button);
 
         button.addActionListener(event -> {
-            updateContentPanel(new panels.MyAssetsPanel(accountService, userService, assetService, portfolioService));
+            updateContentPanel(new panels.MyAssetsPanel(accountService, userService, assetService, portfolioService, transactionService));
         });
 
         add(button);

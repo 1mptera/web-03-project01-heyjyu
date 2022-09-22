@@ -16,4 +16,14 @@ public class AccountService {
     public double cash() {
         return repository.cash();
     }
+
+    public void process(String type, Double amount) {
+        if (type.equals("입금")) {
+            repository.updateCash(repository.cash() + amount);
+        }
+
+        if (type.equals("출금")) {
+            repository.updateCash(repository.cash() - amount);
+        }
+    }
 }

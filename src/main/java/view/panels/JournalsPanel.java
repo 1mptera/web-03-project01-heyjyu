@@ -37,7 +37,6 @@ import java.util.UUID;
 
 public class JournalsPanel extends JPanel {
     private JournalService journalService;
-    private TradingService tradingService;
     private AssetService assetService;
 
     private JPanel topPanel;
@@ -45,9 +44,8 @@ public class JournalsPanel extends JPanel {
     private JPanel journalsPanel;
     private JournalFrame journalWindow;
 
-    public JournalsPanel(JournalService journalService, TradingService tradingService, AssetService assetService) throws IOException {
+    public JournalsPanel(JournalService journalService, AssetService assetService) throws IOException {
         this.journalService = journalService;
-        this.tradingService = tradingService;
         this.assetService = assetService;
 
         setLayout(new BorderLayout());
@@ -84,7 +82,7 @@ public class JournalsPanel extends JPanel {
                 return;
             }
 
-            journalingWindow = new JournalingFrame(journalService, tradingService, assetService);
+            journalingWindow = new JournalingFrame(journalService, assetService);
 
             journalingWindow.setVisible(true);
 

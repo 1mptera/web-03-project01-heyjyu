@@ -10,8 +10,30 @@ class AccountServiceTest {
     void modifyCash() {
         AccountService accountService = new AccountService();
 
+        Double initialAmount = accountService.cash();
+
         accountService.modifyCash(100.0);
 
         assertEquals(100.0, accountService.cash());
+
+        accountService.modifyCash(initialAmount);
+    }
+
+    @Test
+    void process() {
+        AccountService accountService = new AccountService();
+
+        String type = "입금";
+        Double amount = 10000.0;
+
+        Double initialAmount = accountService.cash();
+
+        accountService.process(type, amount);
+
+        assertEquals(10000.0, accountService.cash() - initialAmount);
+
+        accountService.process("출금", 10000.0);
+
+        assertEquals(initialAmount, accountService.cash());
     }
 }
