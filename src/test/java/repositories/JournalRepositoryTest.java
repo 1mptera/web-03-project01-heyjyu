@@ -14,7 +14,7 @@ class JournalRepositoryTest {
 
     @Test
     void add() {
-        JournalRepository journalRepository = JournalRepository.getInstance();
+        JournalRepository journalRepository = new JournalRepository();
 
         LocalDate date = LocalDate.of(2022, 9, 21);
         String title = "익절";
@@ -33,7 +33,7 @@ class JournalRepositoryTest {
 
     @Test
     void remove() {
-        JournalRepository journalRepository = JournalRepository.getInstance();
+        JournalRepository journalRepository = new JournalRepository();
 
         LocalDate date = LocalDate.of(2022, 9, 21);
         String title = "익절";
@@ -52,7 +52,7 @@ class JournalRepositoryTest {
 
     @Test
     void update() {
-        JournalRepository journalRepository = JournalRepository.getInstance();
+        JournalRepository journalRepository = new JournalRepository();
 
         LocalDate date = LocalDate.of(2022, 9, 21);
         String title = "익절";

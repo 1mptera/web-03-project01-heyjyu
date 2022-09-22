@@ -8,7 +8,7 @@ class AccountRepositoryTest {
 
     @Test
     void updateCash() {
-        AccountRepository accountRepository = AccountRepository.getInstance();
+        AccountRepository accountRepository = new AccountRepository();
 
         double amount = 10000.0;
 

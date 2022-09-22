@@ -18,16 +18,20 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 
 public class RegisterAssetsFrame extends JFrame {
+    private AccountService accountService;
+    private AssetService assetService;
+
     private JPanel contentPanel;
     private JTextField cashField = new JTextField(8);
-    private AccountService accountService = new AccountService();
     private JTextField nameField = new JTextField(8);
     private JTextField averagePriceField = new JTextField(8);
     private JTextField countField = new JTextField(8);
     private JTextField currentUnitPriceField = new JTextField(8);
-    private AssetService assetService = new AssetService();
 
-    public RegisterAssetsFrame() {
+    public RegisterAssetsFrame(AccountService accountService, AssetService assetService) {
+        this.accountService = accountService;
+        this.assetService = assetService;
+
         setTitle("자산 등록");
         setSize(new Dimension(300, 350));
         setLocationRelativeTo(null);

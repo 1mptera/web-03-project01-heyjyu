@@ -8,20 +8,14 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class JournalRepository {
-    private static JournalRepository instance = new JournalRepository();
-
     private List<Journal> journals;
 
-    private JournalRepository() {
+    public JournalRepository() {
         journals = new ArrayList<>(loadJournals());
     }
 
     private List<Journal> loadJournals() {
         return List.of(); //TODO get from file
-    }
-
-    public static JournalRepository getInstance() {
-        return instance;
     }
 
     public void add(Journal journal) {

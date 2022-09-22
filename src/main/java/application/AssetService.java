@@ -12,7 +12,7 @@ public class AssetService {
     private AssetRepository repository;
 
     public AssetService() {
-        repository = AssetRepository.getInstance();
+        repository = new AssetRepository();
     }
 
     public void add(String name, Double averagePrice, Double count, Double currentUnitPrice) {

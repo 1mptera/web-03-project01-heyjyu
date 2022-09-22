@@ -1,5 +1,9 @@
 package panels;
 
+import application.AccountService;
+import application.AssetService;
+import application.PortfolioService;
+import application.UserService;
 import frames.RegisterAssetsFrame;
 import themes.Colors;
 import themes.Fonts;
@@ -10,13 +14,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -30,8 +32,17 @@ public class MyAssetsPanel extends JPanel {
     private JButton transactionTabButton;
     private JFrame registerAssetsWindow;
     private JFrame currentPriceModifyingWindow;
+    private AccountService accountService;
+    private UserService userService;
+    private AssetService assetService;
+    private PortfolioService portfolioService;
 
-    public MyAssetsPanel() {
+    public MyAssetsPanel(AccountService accountService, UserService userService, AssetService assetService, PortfolioService portfolioService) {
+        this.accountService = accountService;
+        this.userService = userService;
+        this.assetService = assetService;
+        this.portfolioService = portfolioService;
+
         setLayout(new BorderLayout());
         setOpaque(false);
 
@@ -73,14 +84,14 @@ public class MyAssetsPanel extends JPanel {
                 return;
             }
 
-            registerAssetsWindow = new RegisterAssetsFrame();
+            registerAssetsWindow = new RegisterAssetsFrame(accountService, assetService);
 
             registerAssetsWindow.setVisible(true);
 
             registerAssetsWindow.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
-                    updateContentPanel(new panels.AssetsPanel());
+                    updateContentPanel(new panels.AssetsPanel(accountService, userService, assetService, portfolioService));
                 }
             });
         });
@@ -108,14 +119,14 @@ public class MyAssetsPanel extends JPanel {
                 return;
             }
 
-            currentPriceModifyingWindow = new CurrentPriceModifyingFrame();
+            currentPriceModifyingWindow = new CurrentPriceModifyingFrame(assetService);
 
             currentPriceModifyingWindow.setVisible(true);
 
             currentPriceModifyingWindow.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
-                    updateContentPanel(new panels.AssetsPanel());
+                    updateContentPanel(new panels.AssetsPanel(accountService, userService, assetService, portfolioService));
                 }
             });
         });
@@ -134,7 +145,7 @@ public class MyAssetsPanel extends JPanel {
         contentPanel = new JPanel();
 
         contentPanel.setLayout(new GridLayout());
-        contentPanel.add(new panels.AssetsPanel());
+        contentPanel.add(new panels.AssetsPanel(accountService, userService, assetService, portfolioService));
 
         contentPanel.setOpaque(false);
 
@@ -172,7 +183,7 @@ public class MyAssetsPanel extends JPanel {
             assetsTabButton.setFont(Fonts.MEDIUM_BOLD);
             transactionTabButton.setFont(Fonts.MEDIUM);
 
-            updateContentPanel(new panels.AssetsPanel());
+            updateContentPanel(new panels.AssetsPanel(accountService, userService, assetService, portfolioService));
         });
 
         return assetsTabButton;

@@ -27,9 +27,9 @@ public class JournalModifyingFrame extends JFrame {
 
     private JPanel contentPanel;
     private JTextArea textArea;
-    private JournalService journalService = new JournalService();
+    private JournalService journalService;
 
-    public JournalModifyingFrame(UUID journalId) {
+    public JournalModifyingFrame(JournalService journalService, UUID journalId) {
         this.journalId = journalId;
 
         setTitle("일지 수정");

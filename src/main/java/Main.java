@@ -1,3 +1,9 @@
+import application.AccountService;
+import application.AssetService;
+import application.JournalService;
+import application.PortfolioService;
+import application.TradingService;
+import application.UserService;
 import frames.MainFrame;
 
 import javax.swing.JFrame;
@@ -11,7 +17,14 @@ public class Main {
     }
 
     private void run() throws IOException {
-        JFrame mainFrame = new MainFrame();
+        JournalService journalService = new JournalService();
+        TradingService tradingService = new TradingService();
+        AccountService accountService = new AccountService();
+        AssetService assetService = new AssetService();
+        UserService userService = new UserService(accountService, assetService);
+        PortfolioService portfolioService = new PortfolioService(accountService, assetService);
+
+        JFrame mainFrame = new MainFrame(journalService, tradingService, accountService, userService, assetService, portfolioService);
 
         mainFrame.setVisible(true);
     }
