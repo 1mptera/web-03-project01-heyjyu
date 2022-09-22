@@ -22,14 +22,14 @@ import java.awt.Insets;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class ModifyingFrame extends JFrame {
+public class JournalModifyingFrame extends JFrame {
     private UUID journalId;
 
     private JPanel contentPanel;
     private JTextArea textArea;
     private JournalService journalService = new JournalService();
 
-    public ModifyingFrame(UUID journalId) {
+    public JournalModifyingFrame(UUID journalId) {
         this.journalId = journalId;
 
         setTitle("일지 수정");

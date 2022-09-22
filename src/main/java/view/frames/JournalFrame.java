@@ -25,7 +25,7 @@ public class JournalFrame extends JFrame {
     private UUID journalId;
 
     private JPanel contentPanel;
-    private JFrame revisingWindow;
+    private JFrame modifyingWindow;
     private JPanel journalContentPanel;
     private JournalService journalService = new JournalService();
 
@@ -66,15 +66,15 @@ public class JournalFrame extends JFrame {
         JButton button = new JButton("수정");
 
         button.addActionListener(event -> {
-            if (revisingWindow != null && revisingWindow.isDisplayable()) {
+            if (modifyingWindow != null && modifyingWindow.isDisplayable()) {
                 return;
             }
 
-            revisingWindow = new frames.ModifyingFrame(journalId);
+            modifyingWindow = new frames.JournalModifyingFrame(journalId);
 
-            revisingWindow.setVisible(true);
+            modifyingWindow.setVisible(true);
 
-            revisingWindow.addWindowListener(new WindowAdapter() {
+            modifyingWindow.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
                     updateJournalContentPanel();

@@ -61,6 +61,20 @@ class AssetTest {
 
         assertEquals(550000.0, asset.valuation());
     }
+    
+    @Test
+    void modifyCurrentPrice() {
+        String name = "삼성전자";
+        Double averagePrice = 56000.0;
+        Double count = 10.0;
+        Double currentUnitPrice = 55000.0;
+
+        Asset asset = new Asset(name, averagePrice, count, currentUnitPrice);
+
+        asset.modifyCurrentPrice(50000.0);
+
+        assertEquals(500000.0, asset.valuation());
+    }
 
     @Test
     void totalPurchase() {

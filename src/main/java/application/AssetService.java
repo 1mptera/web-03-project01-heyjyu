@@ -32,7 +32,7 @@ public class AssetService {
     }
 
     public List<Asset> assets() {
-        return repository.assets().stream().filter(asset -> asset.count() > 0).toList();
+        return repository.assets();
     }
 
     public UUID getId(Asset asset) {
@@ -115,5 +115,9 @@ public class AssetService {
 
     public double round(double number) {
         return Math.round(number * 100) / 100.0;
+    }
+
+    public void updateCurrentPrices(List<Double> prices) {
+        repository.updateCurrentPrices(prices);
     }
 }
