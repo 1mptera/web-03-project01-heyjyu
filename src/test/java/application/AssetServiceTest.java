@@ -4,6 +4,8 @@ import models.Asset;
 import models.Trading;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class AssetServiceTest {
 
     @Test
-    void add() {
+    void add() throws IOException {
         AssetService assetService = new AssetService();
 
         int previousCount = assetService.assets().size();
@@ -40,7 +42,7 @@ class AssetServiceTest {
     }
 
     @Test
-    void ids() {
+    void ids() throws IOException {
         AssetService assetService = new AssetService();
 
         String name = "이런이름은 없지 주식";
@@ -59,7 +61,7 @@ class AssetServiceTest {
     }
 
     @Test
-    void id() {
+    void id() throws IOException {
         AssetService assetService = new AssetService();
 
         String name = "이런이름은 없지 주식";
@@ -78,7 +80,7 @@ class AssetServiceTest {
     }
 
     @Test
-    void remove() {
+    void remove() throws IOException {
         AssetService assetService = new AssetService();
 
         String name = "이런이름은 없지 주식";
@@ -97,7 +99,7 @@ class AssetServiceTest {
     }
 
     @Test
-    void process() {
+    void process() throws IOException {
         AssetService assetService = new AssetService();
 
         assetService.add("이런이름은 없지 주식1", 5000.0, 10.0, 6000.0);
@@ -127,7 +129,7 @@ class AssetServiceTest {
     }
 
     @Test
-    void updateCurrentPrices() {
+    void updateCurrentPrices() throws IOException {
         AssetService assetService = new AssetService();
 
         String name = "이런이름은 없지 주식";
@@ -153,7 +155,7 @@ class AssetServiceTest {
     }
 
     @Test
-    void totalPurchase() {
+    void totalPurchase() throws IOException {
         AssetService assetService = new AssetService();
 
         Double initialTotalPurchase = assetService.totalPurchase();
@@ -184,14 +186,14 @@ class AssetServiceTest {
     }
 
     @Test
-    void round() {
+    void round() throws FileNotFoundException {
         AssetService assetService = new AssetService();
 
         assertEquals(18.22, assetService.round(18.2223445));
     }
 
     @Test
-    void values() {
+    void values() throws IOException {
         AssetService assetService = new AssetService();
 
         String name = "이런이름은 없지 주식";

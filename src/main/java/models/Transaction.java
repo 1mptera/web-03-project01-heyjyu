@@ -3,7 +3,7 @@ package models;
 import java.util.UUID;
 
 public class Transaction {
-    private final UUID id;
+    private UUID id;
     private String type;
     private Double amount;
     private String memo;
@@ -17,6 +17,11 @@ public class Transaction {
     public Transaction(String type, Double amount, String memo) {
         this(type, amount);
         this.memo = memo;
+    }
+
+    public Transaction(UUID id, String type, Double amount) {
+        this(type, amount);
+        this.id = id;
     }
 
     public UUID id() {
@@ -33,5 +38,9 @@ public class Transaction {
 
     public String memo() {
         return memo;
+    }
+
+    public String toCsvRow() {
+        return id + "," + type + "," + amount;
     }
 }

@@ -4,6 +4,8 @@ import models.Journal;
 import models.Trading;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -12,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class JournalServiceTest {
 
     @Test
-    void write() {
+    void write() throws IOException {
         JournalService journalService = new JournalService();
 
         int previousCount = journalService.journals().size();
@@ -32,7 +34,7 @@ class JournalServiceTest {
     }
 
     @Test
-    void ids() {
+    void ids() throws IOException {
         JournalService journalService = new JournalService();
 
         String title = "삼성전자 매수";
@@ -50,7 +52,7 @@ class JournalServiceTest {
     }
 
     @Test
-    void id() {
+    void id() throws IOException {
         JournalService journalService = new JournalService();
 
         String title = "삼성전자 매수";
@@ -68,7 +70,7 @@ class JournalServiceTest {
     }
 
     @Test
-    void starredId() {
+    void starredId() throws IOException {
         JournalService journalService = new JournalService();
 
         String title = "삼성전자 매수";
@@ -90,7 +92,7 @@ class JournalServiceTest {
     }
 
     @Test
-    void date() {
+    void date() throws IOException {
         JournalService journalService = new JournalService();
 
         String title = "삼성전자 매수";
@@ -108,7 +110,7 @@ class JournalServiceTest {
     }
 
     @Test
-    void title() {
+    void title() throws IOException {
         JournalService journalService = new JournalService();
 
         String title = "삼성전자 매수";
@@ -126,7 +128,7 @@ class JournalServiceTest {
     }
 
     @Test
-    void remove() {
+    void remove() throws IOException {
         JournalService journalService = new JournalService();
 
         String title = "삼성전자 매수";
@@ -144,7 +146,7 @@ class JournalServiceTest {
     }
 
     @Test
-    void starred() {
+    void starred() throws IOException {
         JournalService journalService = new JournalService();
 
         String title = "삼성전자 매수";
@@ -162,7 +164,7 @@ class JournalServiceTest {
     }
 
     @Test
-    void content() {
+    void content() throws IOException {
         JournalService journalService = new JournalService();
 
         String title = "삼성전자 매수";
@@ -180,7 +182,7 @@ class JournalServiceTest {
     }
 
     @Test
-    void modify() {
+    void modify() throws IOException {
         JournalService journalService = new JournalService();
 
         String title = "삼성전자 매수";
@@ -200,7 +202,7 @@ class JournalServiceTest {
     }
 
     @Test
-    void toggleStar() {
+    void toggleStar() throws IOException {
         JournalService journalService = new JournalService();
 
         String title = "삼성전자 매수";

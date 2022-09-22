@@ -26,6 +26,11 @@ public class Journal {
         this.starred = starred;
     }
 
+    public Journal(UUID id, LocalDate date, String title, String content, List<Trading> tradings, boolean starred) {
+        this(date, title, content, tradings, starred);
+        this.id = id;
+    }
+
     public LocalDate date() {
         return date;
     }
@@ -56,5 +61,9 @@ public class Journal {
 
     public List<Trading> tradings() {
         return new ArrayList<>(tradings);
+    }
+
+    public String toCsvRow() {
+        return id + "," + date + "," + title + "," + content + "," + String.join("/", tradings.stream().map(trading -> trading.toCsvRow()).toList()) + "," + starred;
     }
 }

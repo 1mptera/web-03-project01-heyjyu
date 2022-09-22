@@ -1,9 +1,11 @@
 package models;
 
+import java.text.DecimalFormat;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Trading {
-    private final UUID id;
+    private UUID id;
     private String name;
     private String type;
     private Double unitPrice;
@@ -17,6 +19,12 @@ public class Trading {
         this.unitPrice = unitPrice;
         this.count = count;
         this.amount = process();
+    }
+
+    public Trading(UUID id, String name, String type, Double unitPrice, Double count) {
+        this(name, type, unitPrice, count);
+
+        this.id = id;
     }
 
     public String name() {
@@ -50,5 +58,16 @@ public class Trading {
 
     public UUID id() {
         return id;
+    }
+
+    public String toCsvRow() {
+        return id + "|" + name + "|" + type + "|" + unitPrice + "|" + count;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        Trading otherTrading = (Trading) other;
+
+        return id.equals(otherTrading.id);
     }
 }

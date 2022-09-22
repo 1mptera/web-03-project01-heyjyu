@@ -3,6 +3,8 @@ package repositories;
 import models.Asset;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -13,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class AssetRepositoryTest {
 
     @Test
-    void add() {
+    void add() throws IOException {
         AssetRepository assetRepository = new AssetRepository();
 
         String name = "삼성전자";
@@ -33,7 +35,7 @@ class AssetRepositoryTest {
     }
 
     @Test
-    void remove() {
+    void remove() throws IOException {
         AssetRepository assetRepository = new AssetRepository();
 
         String name = "삼성전자";
@@ -53,7 +55,7 @@ class AssetRepositoryTest {
     }
 
     @Test
-    void updateCurrentPrices() {
+    void updateCurrentPrices() throws IOException {
         AssetRepository assetRepository = new AssetRepository();
 
         String name = "이런이름은 없지 주식";

@@ -27,6 +27,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class JournalingFrame extends JFrame {
@@ -268,9 +269,17 @@ public class JournalingFrame extends JFrame {
                 return;
             }
 
-            journalService.writeJournal(title, content, tradingService.tradings());
+            try {
+                journalService.writeJournal(title, content, tradingService.tradings());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
-            assetService.process(tradingService.tradings());
+            try {
+                assetService.process(tradingService.tradings());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
             dispose();
         });

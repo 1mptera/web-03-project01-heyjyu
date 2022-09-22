@@ -4,6 +4,8 @@ import models.Journal;
 import models.Trading;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -13,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class JournalRepositoryTest {
 
     @Test
-    void add() {
+    void add() throws IOException {
         JournalRepository journalRepository = new JournalRepository();
 
         LocalDate date = LocalDate.of(2022, 9, 21);
@@ -32,7 +34,7 @@ class JournalRepositoryTest {
     }
 
     @Test
-    void remove() {
+    void remove() throws IOException {
         JournalRepository journalRepository = new JournalRepository();
 
         LocalDate date = LocalDate.of(2022, 9, 21);
@@ -51,7 +53,7 @@ class JournalRepositoryTest {
     }
 
     @Test
-    void update() {
+    void update() throws IOException {
         JournalRepository journalRepository = new JournalRepository();
 
         LocalDate date = LocalDate.of(2022, 9, 21);
@@ -69,5 +71,24 @@ class JournalRepositoryTest {
         assertEquals("내용 수정했다.", journalRepository.getById(id).content());
 
         journalRepository.removeById(id);
+    }
+
+    @Test
+    void parseDate() throws FileNotFoundException {
+        JournalRepository journalRepository = new JournalRepository();
+
+        assertEquals(LocalDate.of(2022, 9, 21), journalRepository.parseLocalDate("2022-9-21"));
+    }
+
+    @Test
+    void parseTrading() throws FileNotFoundException {
+        JournalRepository journalRepository = new JournalRepository();
+
+        String line = "45d45cf2-ea5d-450a-9cbf-d7aabce46e38|비트코인|매수|2.6585E7|0.01/36613bae-c1fc-43b0-ac18-3e7d2f81be83|비트코인|매도|2.6085E7|0.005";
+
+        List<Trading> tradings = List.of(new Trading(UUID.fromString("45d45cf2-ea5d-450a-9cbf-d7aabce46e38"), "비트코인", "매수", 2.6585E7, 0.01),
+                new Trading(UUID.fromString("36613bae-c1fc-43b0-ac18-3e7d2f81be83"), "비트코인", "매도", 2.6085E7, 0.005));
+
+        assertEquals(tradings, journalRepository.parseTrading(line));
     }
 }

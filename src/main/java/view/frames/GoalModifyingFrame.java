@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.io.IOException;
 
 public class GoalModifyingFrame extends JFrame {
     private GoalService goalService;
@@ -56,7 +57,11 @@ public class GoalModifyingFrame extends JFrame {
         JButton button = new JButton("수정");
 
         button.addActionListener(event -> {
-            goalService.modifyAmount(Double.parseDouble(field.getText()));
+            try {
+                goalService.modifyAmount(Double.parseDouble(field.getText()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
             dispose();
         });

@@ -198,7 +198,11 @@ public class BookmarkPanel extends JPanel {
         deleteButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         deleteButton.addActionListener(event -> {
-            journalService.remove((UUID) journalId);
+            try {
+                journalService.remove((UUID) journalId);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
             try {
                 updateJournalsPanel();
