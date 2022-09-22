@@ -95,4 +95,18 @@ class AssetTest {
 
         assertEquals(1, asset1.compareTo(asset2));
     }
+
+    @Test
+    void income() {
+        Asset asset = new Asset("삼성전자", 30000.0, 10.0, 55000.0);
+
+        assertEquals(250000.0, asset.income());
+    }
+
+    @Test
+    void performance() {
+        Asset asset = new Asset("삼성전자", 30000.0, 10.0, 55000.0);
+
+        assertEquals((55000.0 - 30000.0) / 30000.0, asset.performance());
+    }
 }

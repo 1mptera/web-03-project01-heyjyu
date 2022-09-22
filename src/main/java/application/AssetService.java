@@ -105,10 +105,6 @@ public class AssetService {
         return repository.getById(id).count();
     }
 
-    public double averagePrice(UUID id) {
-        return repository.getById(id).averagePrice();
-    }
-
     public double currentUnitPrice(UUID id) {
         return repository.getById(id).currentUnitPrice();
     }
@@ -119,5 +115,25 @@ public class AssetService {
 
     public void updateCurrentPrices(List<Double> prices) {
         repository.updateCurrentPrices(prices);
+    }
+
+    public double averagePrice(UUID id) {
+        return repository.getById(id).averagePrice();
+    }
+
+    public Double performance(UUID id) {
+        return round(repository.getById(id).performance() * 100);
+    }
+
+    public Double income(UUID id) {
+        return repository.getById(id).income();
+    }
+
+    public Double valuation(UUID id) {
+        return repository.getById(id).valuation();
+    }
+
+    public Double totalPurchase(UUID id) {
+        return repository.getById(id).totalPurchase();
     }
 }

@@ -84,4 +84,12 @@ public class Asset implements Comparable<Asset> {
 
         return 0;
     }
+
+    public double income() {
+        return valuation() - totalPurchase();
+    }
+
+    public double performance() {
+        return (currentUnitPrice - averagePrice) / averagePrice;
+    }
 }

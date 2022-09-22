@@ -189,4 +189,28 @@ class AssetServiceTest {
 
         assertEquals(18.22, assetService.round(18.2223445));
     }
+
+    @Test
+    void values() {
+        AssetService assetService = new AssetService();
+
+        String name = "이런이름은 없지 주식";
+        Double averagePrice = 56000.0;
+        Double count = 10.0;
+        Double currentUnitPrice = 57000.0;
+
+        assetService.add(name, averagePrice, count, currentUnitPrice);
+
+        List<Asset> assets = assetService.assets();
+        Asset asset = assets.get(assets.size() - 1);
+
+        assertEquals(56000.0, assetService.averagePrice(assetService.getId(asset)));
+        assertEquals(570000.0, assetService.valuation(assetService.getId(asset)));
+        assertEquals(560000.0, assetService.totalPurchase(assetService.getId(asset)));
+        assertEquals(10.0, assetService.count(assetService.getId(asset)));
+        assertEquals(10000.0, assetService.income(assetService.getId(asset)));
+        assertEquals(1.79, assetService.performance(assetService.getId(asset)));
+
+        assetService.remove(assetService.getId(asset));
+    }
 }
