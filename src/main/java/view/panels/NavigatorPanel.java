@@ -1,6 +1,7 @@
 package panels;
 
 import models.Resources;
+import themes.Colors;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -22,7 +23,7 @@ public class NavigatorPanel extends JPanel {
 
         setPreferredSize(new Dimension(400, 70));
         setLayout(new GridLayout(1, 5));
-        setBackground(new Color(0, 37, 88));
+        setBackground(Colors.PRIMARY);
 
         initJournalButton();
         initBookmarkButton();

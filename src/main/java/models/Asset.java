@@ -3,7 +3,7 @@ package models;
 import java.util.List;
 import java.util.UUID;
 
-public class Asset {
+public class Asset implements Comparable<Asset> {
     private final UUID id;
     private String name;
     private Double averagePrice;
@@ -70,5 +70,18 @@ public class Asset {
 
     public void modifyCurrentPrice(Double price) {
         currentUnitPrice = price;
+    }
+
+    @Override
+    public int compareTo(Asset asset) {
+        if (asset.valuation() < valuation()) {
+            return 1;
+        }
+
+        if (asset.valuation() > valuation()) {
+            return -1;
+        }
+
+        return 0;
     }
 }
