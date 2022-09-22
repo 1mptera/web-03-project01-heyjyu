@@ -26,8 +26,9 @@ public class CurrentPriceModifyingFrame extends JFrame {
     private JPanel contentPanel;
     private List<JTextField> fields = new ArrayList<>();
 
-    public CurrentPriceModifyingFrame() {
-        assetService = new AssetService();
+    public CurrentPriceModifyingFrame(AssetService assetService) {
+        this.assetService = assetService;
+        
         for (int i = 0; i < assetService.assets().size(); i += 1) {
             JTextField textField = new JTextField();
             textField.setText(String.valueOf(assetService.assets().get(i).currentUnitPrice()));

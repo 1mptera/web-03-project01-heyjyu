@@ -1,5 +1,11 @@
 package panels;
 
+import application.AccountService;
+import application.AssetService;
+import application.JournalService;
+import application.PortfolioService;
+import application.TradingService;
+import application.UserService;
 import models.Resources;
 import themes.Colors;
 
@@ -16,10 +22,27 @@ import java.awt.Image;
 import java.io.IOException;
 
 public class NavigatorPanel extends JPanel {
+    private JournalService journalService;
+    private TradingService tradingService;
+    private AssetService assetService;
+    private AccountService accountService;
+    private UserService userService;
+    private PortfolioService portfolioService;
+
     private JPanel contentPanel;
 
-    public NavigatorPanel(JPanel contentPanel) throws IOException {
+    public NavigatorPanel(JPanel contentPanel, JournalService journalService,
+                          TradingService tradingService, AccountService accountService,
+                          UserService userService, AssetService assetService,
+                          PortfolioService portfolioService) throws IOException {
         this.contentPanel = contentPanel;
+
+        this.journalService = journalService;
+        this.tradingService = tradingService;
+        this.accountService = accountService;
+        this.userService = userService;
+        this.assetService = assetService;
+        this.portfolioService = portfolioService;
 
         setPreferredSize(new Dimension(400, 70));
         setLayout(new GridLayout(1, 5));
@@ -41,7 +64,7 @@ public class NavigatorPanel extends JPanel {
 
         button.addActionListener(event -> {
             try {
-                updateContentPanel(new panels.JournalsPanel());
+                updateContentPanel(new panels.JournalsPanel(journalService, tradingService, assetService));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -59,7 +82,7 @@ public class NavigatorPanel extends JPanel {
 
         button.addActionListener(event -> {
             try {
-                updateContentPanel(new panels.BookmarkPanel());
+                updateContentPanel(new panels.BookmarkPanel(journalService));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -76,7 +99,7 @@ public class NavigatorPanel extends JPanel {
         applyTheme(button);
 
         button.addActionListener(event -> {
-            updateContentPanel(new panels.MyAssetsPanel());
+            updateContentPanel(new panels.MyAssetsPanel(accountService, userService, assetService, portfolioService));
         });
 
         add(button);

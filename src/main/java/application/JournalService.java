@@ -12,7 +12,7 @@ public class JournalService {
     private JournalRepository repository;
 
     public JournalService() {
-        repository = JournalRepository.getInstance();
+        repository = new JournalRepository();
     }
 
     public List<Journal> journals() {

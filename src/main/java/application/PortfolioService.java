@@ -8,9 +8,9 @@ public class PortfolioService {
     private AccountService accountService;
     private AssetService assetService;
 
-    public PortfolioService() {
-        accountService = new AccountService();
-        assetService = new AssetService();
+    public PortfolioService(AccountService accountService, AssetService assetService) {
+        this.accountService = accountService;
+        this.assetService = assetService;
     }
 
     public HashMap<String, Double> assets(int count) {

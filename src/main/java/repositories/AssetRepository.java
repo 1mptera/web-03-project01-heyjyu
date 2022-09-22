@@ -8,20 +8,14 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class AssetRepository {
-    private static AssetRepository instance = new AssetRepository();
-
     private List<Asset> assets;
 
-    private AssetRepository() {
+    public AssetRepository() {
         assets = new ArrayList<>(loadAssets());
     }
 
     private List<Asset> loadAssets() {
         return List.of(); //TODO get from file
-    }
-
-    public static AssetRepository getInstance() {
-        return instance;
     }
 
     public void add(Asset journal) {
@@ -52,7 +46,7 @@ public class AssetRepository {
         if (assets.size() == 0) {
             return;
         }
-        
+
         for (int i = 0; i < assets.size(); i += 1) {
             assets.get(i).modifyCurrentPrice(prices.get(i));
         }

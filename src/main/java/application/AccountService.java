@@ -6,7 +6,7 @@ public class AccountService {
     private AccountRepository repository;
 
     public AccountService() {
-        repository = AccountRepository.getInstance();
+        repository = new AccountRepository();
     }
 
     public void modifyCash(Double amount) {

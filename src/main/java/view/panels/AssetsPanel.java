@@ -15,12 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
@@ -34,16 +31,21 @@ import java.util.List;
 import java.util.UUID;
 
 public class AssetsPanel extends JPanel {
-    private AccountService accountService = new AccountService();
-    private UserService userService = new UserService();
-    private AssetService assetService = new AssetService();
-    private PortfolioService portfolioService = new PortfolioService();
+    private AccountService accountService;
+    private UserService userService;
+    private AssetService assetService;
+    private PortfolioService portfolioService;
 
     private JPanel amountPanel;
     private JPanel portFolioPanel;
     private JPanel listPanel;
 
-    public AssetsPanel() {
+    public AssetsPanel(AccountService accountService, UserService userService, AssetService assetService, PortfolioService portfolioService) {
+        this.accountService = accountService;
+        this.userService = userService;
+        this.assetService = assetService;
+        this.portfolioService = portfolioService;
+
         setLayout(new GridBagLayout());
         setOpaque(false);
 
@@ -97,7 +99,7 @@ public class AssetsPanel extends JPanel {
     private void initAssets() {
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.fill = GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new Insets(0, 10, 0, 0);
+        gridBagConstraints.insets = new Insets(0, 20, 0, 20);
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.weightx = 1.0;

@@ -27,9 +27,10 @@ public class JournalFrame extends JFrame {
     private JPanel contentPanel;
     private JFrame modifyingWindow;
     private JPanel journalContentPanel;
-    private JournalService journalService = new JournalService();
+    private JournalService journalService;
 
-    public JournalFrame(UUID journalId) {
+    public JournalFrame(JournalService journalService, UUID journalId) {
+        this.journalService = journalService;
         this.journalId = journalId;
 
         setTitle("일지");
@@ -70,7 +71,7 @@ public class JournalFrame extends JFrame {
                 return;
             }
 
-            modifyingWindow = new frames.JournalModifyingFrame(journalId);
+            modifyingWindow = new frames.JournalModifyingFrame(journalService, journalId);
 
             modifyingWindow.setVisible(true);
 

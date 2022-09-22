@@ -1,6 +1,8 @@
 package panels;
 
+import application.AssetService;
 import application.JournalService;
+import application.TradingService;
 import frames.JournalFrame;
 import frames.JournalingFrame;
 import models.Resources;
@@ -34,14 +36,20 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class JournalsPanel extends JPanel {
-    private JournalService journalService = new JournalService();
+    private JournalService journalService;
+    private TradingService tradingService;
+    private AssetService assetService;
 
     private JPanel topPanel;
     private JournalingFrame journalingWindow;
     private JPanel journalsPanel;
     private JournalFrame journalWindow;
 
-    public JournalsPanel() throws IOException {
+    public JournalsPanel(JournalService journalService, TradingService tradingService, AssetService assetService) throws IOException {
+        this.journalService = journalService;
+        this.tradingService = tradingService;
+        this.assetService = assetService;
+
         setLayout(new BorderLayout());
         setOpaque(false);
 
@@ -76,7 +84,7 @@ public class JournalsPanel extends JPanel {
                 return;
             }
 
-            journalingWindow = new JournalingFrame();
+            journalingWindow = new JournalingFrame(journalService, tradingService, assetService);
 
             journalingWindow.setVisible(true);
 
@@ -176,7 +184,7 @@ public class JournalsPanel extends JPanel {
                 return;
             }
 
-            journalWindow = new JournalFrame((UUID) journalId);
+            journalWindow = new JournalFrame(journalService, (UUID) journalId);
 
             journalWindow.setVisible(true);
 

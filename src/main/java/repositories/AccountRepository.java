@@ -3,16 +3,10 @@ package repositories;
 import models.Account;
 
 public class AccountRepository {
-    private static AccountRepository instance = new AccountRepository();
-
     private Account account;
 
-    private AccountRepository() {
+    public AccountRepository() {
         account = new Account(loadCash());
-    }
-
-    public static AccountRepository getInstance() {
-        return instance;
     }
 
     private double loadCash() {

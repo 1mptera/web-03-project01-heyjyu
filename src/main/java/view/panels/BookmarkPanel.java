@@ -34,9 +34,11 @@ public class BookmarkPanel extends JPanel {
     private JPanel topPanel;
     private JPanel journalsPanel;
     private JournalFrame journalWindow;
-    private JournalService journalService = new JournalService();
+    private JournalService journalService;
 
-    public BookmarkPanel() throws IOException {
+    public BookmarkPanel(JournalService journalService) throws IOException {
+        this.journalService = journalService;
+
         setLayout(new BorderLayout());
         setOpaque(false);
 
@@ -136,7 +138,7 @@ public class BookmarkPanel extends JPanel {
                 return;
             }
 
-            journalWindow = new JournalFrame((UUID) journalId);
+            journalWindow = new JournalFrame(journalService, (UUID) journalId);
 
             journalWindow.setVisible(true);
 

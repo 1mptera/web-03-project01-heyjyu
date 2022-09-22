@@ -40,11 +40,15 @@ public class JournalingFrame extends JFrame {
     private JTextField unitPriceField;
     private JTextField countField;
     private JPanel tradingPanel;
-    private JournalService journalService = new JournalService();
-    private TradingService tradingService = new TradingService();
-    private AssetService assetService = new AssetService();
+    private JournalService journalService;
+    private TradingService tradingService;
+    private AssetService assetService;
 
-    public JournalingFrame() {
+    public JournalingFrame(JournalService journalService, TradingService tradingService, AssetService assetService) {
+        this.journalService = journalService;
+        this.tradingService = tradingService;
+        this.assetService = assetService;
+        
         setTitle("일지 작성");
         setLayout(new GridLayout());
         setSize(new Dimension(300, 500));
