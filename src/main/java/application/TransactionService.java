@@ -3,6 +3,7 @@ package application;
 import models.Transaction;
 import repositories.TransactionRepository;
 
+import javax.swing.Icon;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,5 +39,13 @@ public class TransactionService {
                 .stream()
                 .map(transaction -> transaction.id())
                 .toList();
+    }
+
+    public String type(UUID transactionId) {
+        return repository.getById(transactionId).type();
+    }
+
+    public Double amount(UUID transactionId) {
+        return repository.getById(transactionId).amount();
     }
 }

@@ -42,6 +42,8 @@ public class MyAssetsPanel extends JPanel {
     private PortfolioService portfolioService;
     private TransactionService transactionService;
 
+    private String currentTab = "보유 자산";
+
     public MyAssetsPanel(AccountService accountService, UserService userService,
                          AssetService assetService, PortfolioService portfolioService, TransactionService transactionService) {
         this.accountService = accountService;
@@ -98,7 +100,13 @@ public class MyAssetsPanel extends JPanel {
             registerAssetsWindow.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
-                    updateContentPanel(new panels.AssetsPanel(accountService, userService, assetService, portfolioService));
+                    if (currentTab.equals("보유 자산")) {
+                        updateContentPanel(new panels.AssetsPanel(accountService, userService, assetService, portfolioService));
+                    }
+
+                    if (currentTab.equals("입출금 내역")) {
+                        updateContentPanel(new panels.TransactionsPanel(transactionService));
+                    }
                 }
             });
         });
@@ -122,7 +130,13 @@ public class MyAssetsPanel extends JPanel {
             transactionsWindow.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
-                    updateContentPanel(new panels.AssetsPanel(accountService, userService, assetService, portfolioService));
+                    if (currentTab.equals("보유 자산")) {
+                        updateContentPanel(new panels.AssetsPanel(accountService, userService, assetService, portfolioService));
+                    }
+
+                    if (currentTab.equals("입출금 내역")) {
+                        updateContentPanel(new panels.TransactionsPanel(transactionService));
+                    }
                 }
             });
         });
@@ -146,7 +160,13 @@ public class MyAssetsPanel extends JPanel {
             currentPriceModifyingWindow.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
-                    updateContentPanel(new panels.AssetsPanel(accountService, userService, assetService, portfolioService));
+                    if (currentTab.equals("보유 자산")) {
+                        updateContentPanel(new panels.AssetsPanel(accountService, userService, assetService, portfolioService));
+                    }
+
+                    if (currentTab.equals("입출금 내역")) {
+                        updateContentPanel(new panels.TransactionsPanel(transactionService));
+                    }
                 }
             });
         });
@@ -200,6 +220,7 @@ public class MyAssetsPanel extends JPanel {
         assetsTabButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         assetsTabButton.addActionListener(event -> {
+            currentTab = "보유 자산";
             assetsTabButton.setFont(Fonts.MEDIUM_BOLD);
             transactionTabButton.setFont(Fonts.MEDIUM);
 
@@ -217,10 +238,11 @@ public class MyAssetsPanel extends JPanel {
         transactionTabButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         transactionTabButton.addActionListener(event -> {
+            currentTab = "입출금 내역";
             assetsTabButton.setFont(Fonts.MEDIUM);
             transactionTabButton.setFont(Fonts.MEDIUM_BOLD);
 
-            updateContentPanel(new panels.TransactionsPanel());
+            updateContentPanel(new panels.TransactionsPanel(transactionService));
         });
 
         return transactionTabButton;

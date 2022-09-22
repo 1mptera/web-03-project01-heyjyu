@@ -86,4 +86,23 @@ class TransactionServiceTest {
 
         assertFalse(transactionService.transactions().contains(transaction));
     }
+
+    @Test
+    void values() {
+        TransactionService transactionService = new TransactionService();
+
+        String type = "입금";
+        Double amount = 10000.0;
+        String memo = "용돈 받았당";
+
+        transactionService.add(type, amount, memo);
+
+        List<Transaction> transactions = transactionService.transactions();
+        Transaction transaction = transactions.get(transactions.size() - 1);
+
+        assertEquals("입금", transactionService.type(transactionService.getId(transaction)));
+        assertEquals(10000.0, transactionService.amount(transactionService.getId(transaction)));
+
+        transactions.remove(transactionService.getId(transaction));
+    }
 }
