@@ -1,5 +1,6 @@
 import application.AccountService;
 import application.AssetService;
+import application.GoalService;
 import application.JournalService;
 import application.PortfolioService;
 import application.TradingService;
@@ -23,8 +24,9 @@ public class Main {
         AssetService assetService = new AssetService();
         UserService userService = new UserService(accountService, assetService);
         PortfolioService portfolioService = new PortfolioService(accountService, assetService);
+        GoalService goalService = new GoalService();
 
-        JFrame mainFrame = new MainFrame(journalService, tradingService, accountService, userService, assetService, portfolioService);
+        JFrame mainFrame = new MainFrame(journalService, tradingService, accountService, userService, assetService, portfolioService, goalService);
 
         mainFrame.setVisible(true);
     }

@@ -14,6 +14,7 @@ public class Resources {
     public static final Image STAR_FILLED_IMAGE;
     public static final Image STAR_LINED_IMAGE;
     public static final Image STAR_IMAGE;
+    public static final Image MARIO_STAR;
 
     static {
         try {
@@ -60,6 +61,12 @@ public class Resources {
 
         try {
             STAR_IMAGE = ImageIO.read(new File("src/main/resources/images/iconmonstr-star-5-24.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            MARIO_STAR = ImageIO.read(new File("src/main/resources/images/dlf.pt-mario-star-png-4304936.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

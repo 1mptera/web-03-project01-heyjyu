@@ -2,6 +2,7 @@ package panels;
 
 import application.AccountService;
 import application.AssetService;
+import application.GoalService;
 import application.JournalService;
 import application.PortfolioService;
 import application.TradingService;
@@ -28,13 +29,14 @@ public class NavigatorPanel extends JPanel {
     private AccountService accountService;
     private UserService userService;
     private PortfolioService portfolioService;
+    private GoalService goalService;
 
     private JPanel contentPanel;
 
     public NavigatorPanel(JPanel contentPanel, JournalService journalService,
                           TradingService tradingService, AccountService accountService,
                           UserService userService, AssetService assetService,
-                          PortfolioService portfolioService) throws IOException {
+                          PortfolioService portfolioService, GoalService goalService) throws IOException {
         this.contentPanel = contentPanel;
 
         this.journalService = journalService;
@@ -43,6 +45,7 @@ public class NavigatorPanel extends JPanel {
         this.userService = userService;
         this.assetService = assetService;
         this.portfolioService = portfolioService;
+        this.goalService = goalService;
 
         setPreferredSize(new Dimension(400, 70));
         setLayout(new GridLayout(1, 5));
@@ -127,7 +130,7 @@ public class NavigatorPanel extends JPanel {
         applyTheme(button);
 
         button.addActionListener(event -> {
-            updateContentPanel(new panels.GoalPanel());
+            updateContentPanel(new panels.GoalPanel(userService, goalService));
         });
 
         add(button);
