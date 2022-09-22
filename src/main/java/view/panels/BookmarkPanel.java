@@ -92,7 +92,7 @@ public class BookmarkPanel extends JPanel {
         panel.setLayout(new GridLayout(0, 1));
         panel.setBorder(new EmptyBorder(10, 0, 0, 0));
 
-        for (Object id : journalService.getStarredIds()) {
+        for (UUID id : journalService.getStarredIds()) {
             panel.add(createJournalPanel(id));
         }
 
@@ -114,7 +114,7 @@ public class BookmarkPanel extends JPanel {
         return jScrollPane;
     }
 
-    private JPanel createJournalPanel(Object journalId) {
+    private JPanel createJournalPanel(UUID journalId) {
         LocalDate date = journalService.date((UUID) journalId);
 
         JPanel panel = new JPanel();
