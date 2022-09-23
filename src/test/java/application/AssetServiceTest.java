@@ -121,7 +121,7 @@ class AssetServiceTest {
 
         assertEquals("이런이름은 없지 주식2", asset2.name());
         assertEquals(20.0, asset2.count());
-        assertEquals(53900.0, asset2.averagePrice());
+        assertEquals(54200.0, asset2.averagePrice());
         assertEquals(54000.0, asset2.currentUnitPrice());
 
         assetService.remove(assetService.getId(asset1));
@@ -179,7 +179,7 @@ class AssetServiceTest {
 
         Double totalPurchase = assetService.totalPurchase();
 
-        assertEquals(55000.0 * 10.0 - 56000.0 * 6.0 + 54000.0 * 16.0, totalPurchase - initialTotalPurchase);
+        assertEquals(55000.0 * 4.0 + 54000.0 * 16.0, totalPurchase - initialTotalPurchase);
 
         assetService.remove(assetService.getId(asset1));
         assetService.remove(assetService.getId(asset2));

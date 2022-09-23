@@ -6,6 +6,7 @@ import repositories.TransactionRepository;
 import javax.swing.Icon;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,10 +38,16 @@ public class TransactionService {
     }
 
     public List<UUID> getIds() {
-        return repository.transactions()
-                .stream()
-                .map(transaction -> transaction.id())
-                .toList();
+        List<UUID> ids = new ArrayList<>();
+
+        for (int i = 0; i < repository.transactions().size(); i += 1) {
+            ids.add(repository.transactions()
+                    .stream()
+                    .map(transaction -> transaction.id())
+                    .toList().get(repository.transactions().size() - 1 - i));
+        }
+
+        return ids;
     }
 
     public String type(UUID transactionId) {
