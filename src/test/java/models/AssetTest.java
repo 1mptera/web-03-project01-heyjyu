@@ -50,7 +50,7 @@ class AssetTest {
 
         asset.process("매도", averagePrice, count, averagePrice);
 
-        assertEquals(56000.0, asset.averagePrice());
+        assertEquals(55000.0, asset.averagePrice());
         assertEquals(10.0, asset.count());
         assertEquals(56000.0, currentUnitPrice);
     }

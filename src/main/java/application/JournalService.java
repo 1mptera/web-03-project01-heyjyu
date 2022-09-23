@@ -7,6 +7,7 @@ import repositories.JournalRepository;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,10 +27,16 @@ public class JournalService {
     }
 
     public List<UUID> getIds() {
-        return repository.journals()
-                .stream()
-                .map(journal -> journal.id())
-                .toList();
+        List<UUID> ids = new ArrayList<>();
+
+        for (int i = 0; i < repository.journals().size(); i += 1) {
+            ids.add(repository.journals()
+                    .stream()
+                    .map(journal -> journal.id())
+                    .toList().get(repository.journals().size() - 1 - i));
+        }
+
+        return ids;
     }
 
     public UUID getId(Journal journal) {
