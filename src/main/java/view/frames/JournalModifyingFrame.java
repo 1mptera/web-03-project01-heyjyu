@@ -19,6 +19,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -130,7 +131,11 @@ public class JournalModifyingFrame extends JFrame {
         JButton button = new JButton("수정");
 
         button.addActionListener(event -> {
-            journalService.modify(journalId, textArea.getText());
+            try {
+                journalService.modify(journalId, textArea.getText());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
             dispose();
         });

@@ -2,10 +2,13 @@ package application;
 
 import repositories.GoalRepository;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class GoalService {
     private GoalRepository repository;
 
-    public GoalService() {
+    public GoalService() throws FileNotFoundException {
         repository = new GoalRepository();
     }
 
@@ -13,7 +16,7 @@ public class GoalService {
         return repository.amount();
     }
 
-    public void modifyAmount(double amount) {
+    public void modifyAmount(double amount) throws IOException {
         repository.updateAmount(amount);
     }
 }

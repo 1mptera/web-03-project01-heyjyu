@@ -4,6 +4,8 @@ import models.Asset;
 import models.Trading;
 import repositories.AssetRepository;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -11,11 +13,11 @@ import java.util.UUID;
 public class AssetService {
     private AssetRepository repository;
 
-    public AssetService() {
+    public AssetService() throws FileNotFoundException {
         repository = new AssetRepository();
     }
 
-    public void add(String name, Double averagePrice, Double count, Double currentUnitPrice) {
+    public void add(String name, Double averagePrice, Double count, Double currentUnitPrice) throws IOException {
         Optional<Asset> element = repository
                 .assets()
                 .stream()
@@ -39,7 +41,7 @@ public class AssetService {
         return asset.id();
     }
 
-    public void remove(UUID id) {
+    public void remove(UUID id) throws IOException {
         repository.removeById(id);
     }
 
@@ -50,7 +52,7 @@ public class AssetService {
                 .toList();
     }
 
-    public void process(List<Trading> tradings) {
+    public void process(List<Trading> tradings) throws IOException {
         for (Trading trading : tradings) {
             Optional<Asset> element = repository.assets()
                     .stream()
@@ -113,7 +115,7 @@ public class AssetService {
         return Math.round(number * 100) / 100.0;
     }
 
-    public void updateCurrentPrices(List<Double> prices) {
+    public void updateCurrentPrices(List<Double> prices) throws IOException {
         repository.updateCurrentPrices(prices);
     }
 

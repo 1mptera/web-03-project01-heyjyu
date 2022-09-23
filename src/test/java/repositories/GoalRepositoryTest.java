@@ -2,12 +2,14 @@ package repositories;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GoalRepositoryTest {
 
     @Test
-    void updateAmount() {
+    void updateAmount() throws IOException {
         GoalRepository goalRepository = new GoalRepository();
 
         double initialAmount = goalRepository.amount();

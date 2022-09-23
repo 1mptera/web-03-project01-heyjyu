@@ -2,12 +2,15 @@ package application;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AccountServiceTest {
 
     @Test
-    void modifyCash() {
+    void modifyCash() throws IOException {
         AccountService accountService = new AccountService();
 
         Double initialAmount = accountService.cash();
@@ -20,7 +23,7 @@ class AccountServiceTest {
     }
 
     @Test
-    void process() {
+    void process() throws IOException {
         AccountService accountService = new AccountService();
 
         String type = "입금";

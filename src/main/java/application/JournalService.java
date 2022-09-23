@@ -4,6 +4,8 @@ import models.Journal;
 import models.Trading;
 import repositories.JournalRepository;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -11,7 +13,7 @@ import java.util.UUID;
 public class JournalService {
     private JournalRepository repository;
 
-    public JournalService() {
+    public JournalService() throws FileNotFoundException {
         repository = new JournalRepository();
     }
 
@@ -19,7 +21,7 @@ public class JournalService {
         return repository.journals();
     }
 
-    public void writeJournal(String title, String content, List<Trading> tradings) {
+    public void writeJournal(String title, String content, List<Trading> tradings) throws IOException {
         repository.add(new Journal(LocalDate.now(), title, content, tradings));
     }
 
@@ -42,7 +44,7 @@ public class JournalService {
         return repository.getById(journalId).title();
     }
 
-    public void remove(UUID journalId) {
+    public void remove(UUID journalId) throws IOException {
         repository.removeById(journalId);
     }
 
@@ -54,8 +56,8 @@ public class JournalService {
         return repository.getById(journalId).content();
     }
 
-    public void modify(UUID journalId, String content) {
-        repository.getById(journalId).modify(content);
+    public void modify(UUID journalId, String content) throws IOException {
+        repository.updateById(journalId, content);
     }
 
     public void toggleStar(UUID journalId) {

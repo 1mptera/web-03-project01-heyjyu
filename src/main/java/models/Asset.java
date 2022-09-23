@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class Asset implements Comparable<Asset> {
-    private final UUID id;
+    private UUID id;
     private String name;
     private Double averagePrice;
     private Double count;
@@ -18,6 +18,11 @@ public class Asset implements Comparable<Asset> {
         this.count = count;
         this.currentUnitPrice = currentUnitPrice;
         this.amount = averagePrice * count;
+    }
+
+    public Asset(UUID id, String name, Double averagePrice, Double count, Double currentUnitPrice) {
+        this(name, averagePrice, count, currentUnitPrice);
+        this.id = id;
     }
 
     public UUID id() {
@@ -91,5 +96,9 @@ public class Asset implements Comparable<Asset> {
 
     public double performance() {
         return (currentUnitPrice - averagePrice) / averagePrice;
+    }
+
+    public String toCsvRow() {
+        return id + "," + name + "," + averagePrice + "," + count + "," + currentUnitPrice;
     }
 }

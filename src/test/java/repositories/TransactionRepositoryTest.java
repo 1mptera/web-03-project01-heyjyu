@@ -4,6 +4,8 @@ import models.Asset;
 import models.Transaction;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TransactionRepositoryTest {
 
     @Test
-    void add() {
+    void add() throws IOException {
         TransactionRepository transactionRepository = new TransactionRepository();
 
         String type = "입금";
@@ -30,7 +32,7 @@ class TransactionRepositoryTest {
     }
 
     @Test
-    void remove() {
+    void remove() throws IOException {
         TransactionRepository transactionRepository = new TransactionRepository();
 
         String type = "입금";

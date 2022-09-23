@@ -16,6 +16,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.io.IOException;
 
 public class RegisterAssetsFrame extends JFrame {
     private AccountService accountService;
@@ -99,7 +100,11 @@ public class RegisterAssetsFrame extends JFrame {
         JButton button = new JButton("등록");
 
         button.addActionListener(event -> {
-            accountService.modifyCash(Double.valueOf(cashField.getText()));
+            try {
+                accountService.modifyCash(Double.valueOf(cashField.getText()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
             dispose();
         });
@@ -129,10 +134,14 @@ public class RegisterAssetsFrame extends JFrame {
         JButton button = new JButton("등록");
 
         button.addActionListener(event -> {
-            assetService.add(nameField.getText(),
-                    Double.valueOf(averagePriceField.getText()),
-                    Double.valueOf(countField.getText()),
-                    Double.valueOf(currentUnitPriceField.getText()));
+            try {
+                assetService.add(nameField.getText(),
+                        Double.valueOf(averagePriceField.getText()),
+                        Double.valueOf(countField.getText()),
+                        Double.valueOf(currentUnitPriceField.getText()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
             resetFields();
         });

@@ -19,6 +19,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.io.IOException;
 
 public class TransactionsFrame extends JFrame {
     private JPanel contentPanel;
@@ -127,9 +128,17 @@ public class TransactionsFrame extends JFrame {
                 return;
             }
 
-            transactionService.add(type, Double.valueOf(amount), memo);
+            try {
+                transactionService.add(type, Double.valueOf(amount), memo);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
-            accountService.process(type, Double.valueOf(amount));
+            try {
+                accountService.process(type, Double.valueOf(amount));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
             resetFields();
         });

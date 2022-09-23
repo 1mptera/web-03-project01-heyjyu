@@ -2,12 +2,15 @@ package application;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GoalServiceTest {
 
     @Test
-    void modify() {
+    void modify() throws IOException {
         GoalService goalService = new GoalService();
 
         double initialAmount = goalService.amount();

@@ -1,9 +1,9 @@
 package application;
 
-import models.Asset;
 import models.Transaction;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TransactionServiceTest {
 
     @Test
-    void add() {
+    void add() throws IOException {
         TransactionService transactionService = new TransactionService();
 
         int previousCount = transactionService.transactions().size();
@@ -34,7 +34,7 @@ class TransactionServiceTest {
     }
 
     @Test
-    void ids() {
+    void ids() throws IOException {
         TransactionService transactionService = new TransactionService();
 
         String type = "입금";
@@ -52,7 +52,7 @@ class TransactionServiceTest {
     }
 
     @Test
-    void id() {
+    void id() throws IOException {
         TransactionService transactionService = new TransactionService();
 
         String type = "입금";
@@ -70,7 +70,7 @@ class TransactionServiceTest {
     }
 
     @Test
-    void remove() {
+    void remove() throws IOException {
         TransactionService transactionService = new TransactionService();
 
         String type = "입금";
@@ -88,7 +88,7 @@ class TransactionServiceTest {
     }
 
     @Test
-    void values() {
+    void values() throws IOException {
         TransactionService transactionService = new TransactionService();
 
         String type = "입금";
@@ -103,6 +103,6 @@ class TransactionServiceTest {
         assertEquals("입금", transactionService.type(transactionService.getId(transaction)));
         assertEquals(10000.0, transactionService.amount(transactionService.getId(transaction)));
 
-        transactions.remove(transactionService.getId(transaction));
+        transactionService.remove(transactionService.getId(transaction));
     }
 }

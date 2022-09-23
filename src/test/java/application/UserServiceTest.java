@@ -3,12 +3,15 @@ package application;
 import models.Asset;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserServiceTest {
 
     @Test
-    void totalAmount() {
+    void totalAmount() throws IOException {
         UserService userService = new UserService(new AccountService(), new AssetService());
 
         Double initialTotalAmount = userService.totalAmount();

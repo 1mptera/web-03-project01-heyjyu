@@ -16,6 +16,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,7 +29,7 @@ public class CurrentPriceModifyingFrame extends JFrame {
 
     public CurrentPriceModifyingFrame(AssetService assetService) {
         this.assetService = assetService;
-        
+
         for (int i = 0; i < assetService.assets().size(); i += 1) {
             JTextField textField = new JTextField();
             textField.setText(String.valueOf(assetService.assets().get(i).currentUnitPrice()));
@@ -77,7 +78,11 @@ public class CurrentPriceModifyingFrame extends JFrame {
             }
 
             if (assetService.assets().size() > 0) {
-                assetService.updateCurrentPrices(prices);
+                try {
+                    assetService.updateCurrentPrices(prices);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             dispose();

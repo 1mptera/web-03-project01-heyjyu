@@ -2,6 +2,8 @@ package models;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AssetTest {
@@ -12,15 +14,18 @@ class AssetTest {
         Double averagePrice = 56000.0;
         Double count = 10.0;
         Double currentUnitPrice = 55000.0;
+        UUID id = UUID.randomUUID();
 
         Asset asset1 = new Asset(name, averagePrice, count, currentUnitPrice);
         Asset asset2 = new Asset(name, averagePrice, count, currentUnitPrice);
+        Asset asset3 = new Asset(id, name, averagePrice, count, currentUnitPrice);
 
         assertNotEquals(asset1.id(), asset2.id());
         assertEquals("삼성전자", asset1.name());
         assertEquals(56000.0, asset1.averagePrice());
         assertEquals(10.0, asset1.count());
         assertEquals(55000.0, asset1.currentUnitPrice());
+        assertEquals(id, asset3.id());
     }
 
     @Test
@@ -108,5 +113,12 @@ class AssetTest {
         Asset asset = new Asset("삼성전자", 30000.0, 10.0, 55000.0);
 
         assertEquals((55000.0 - 30000.0) / 30000.0, asset.performance());
+    }
+
+    @Test
+    void csv() {
+        Asset asset = new Asset("삼성전자", 30000.0, 10.0, 55000.0);
+
+        assertEquals(asset.id() + ",삼성전자,30000.0,10.0,55000.0", asset.toCsvRow());
     }
 }
