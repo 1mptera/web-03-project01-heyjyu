@@ -57,11 +57,7 @@ public class Asset implements Comparable<Asset> {
         }
 
         if (type.equals("매도")) {
-            double amount = this.averagePrice * this.count - averagePrice * count;
-
             this.count -= count;
-
-            this.averagePrice = amount / this.count;
         }
     }
 
